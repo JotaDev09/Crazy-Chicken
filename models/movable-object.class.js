@@ -23,6 +23,9 @@ class MovableObject {
 
 
     moveRight() {
+        setInterval( () => {
+            this.x -= this.speed;  
+          }, 1000 / 60);
         console.log('moving right');
     }
 

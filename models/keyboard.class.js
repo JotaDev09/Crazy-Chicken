@@ -1,5 +1,5 @@
 class Keyboard {
-    LEFT = false;
+    LEFT = false; 
     RIGHT = false;
     UP = false;
     DOWN = false;
