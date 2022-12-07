@@ -17,23 +17,23 @@ function init() {
 
 window.addEventListener("keyup", (e) => {
     if(e.keyCode == 39) {
-        keyboard.RIGHT = false; console.log('r')
+        keyboard.RIGHT = true; console.log('r')
     };
 
     if(e.keyCode == 37) {
-        keyboard.LEFT = false;
+        keyboard.LEFT = true; console.log('l')
 
     };
 
     if(e.keyCode == 38) {
-        keyboard.UP = false;
+        keyboard.UP = true;
     };
 
     if(e.keyCode == 40) {
-        keyboard.DOWN = false;
+        keyboard.DOWN = true;
     };
 
     if(e.keyCode == 32) {
-        keyboard.SPACE = false;
+        keyboard.SPACE = true;
     };
 })
