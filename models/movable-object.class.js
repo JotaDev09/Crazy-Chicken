@@ -1,4 +1,4 @@
-class MovableObject extends DrawableObject{
+class MovableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
@@ -7,7 +7,7 @@ class MovableObject extends DrawableObject{
     lastHit = 0;
 
 
-    //gravedad
+    //gravity
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -18,13 +18,17 @@ class MovableObject extends DrawableObject{
     };
 
 
-    //volver a 
+    //gravity back to floor
     isAboveGround() {
-        return this.y < 180;
+        if (this instanceof ThrowableObject) {
+            return true
+        } else {
+            return this.y < 180;
+        }
     }
 
 
-    // character is Colliding chicken
+    // Pepe is Colliding chicken
     isColliding(mo) {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
@@ -32,6 +36,7 @@ class MovableObject extends DrawableObject{
             this.y < mo.y + mo.height
     }
 
+    //chicken hit Pepe
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -41,20 +46,20 @@ class MovableObject extends DrawableObject{
         }
     }
 
+    // Pepe is hurting
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; //Difference in sec
-        
+
         return timepassed < 1;
     }
 
 
+    //Pepe is dead
     isDead() {
         return this.energy == 0;
     }
 
-
-   
 
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 0 % 6; 0, Rest 0 // let i = 1 % 6; 0, Rest 1 ...

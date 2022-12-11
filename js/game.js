@@ -15,13 +15,13 @@ function init() {
 }
 
 
-window.addEventListener("keyup", (e) => {
+window.addEventListener("keydown", (e) => {
     if(e.keyCode == 39) {
-        keyboard.RIGHT = true; console.log('r')
+        keyboard.RIGHT = true;
     };
 
     if(e.keyCode == 37) {
-        keyboard.LEFT = true; console.log('l')
+        keyboard.LEFT = true; 
 
     };
 
@@ -36,14 +36,20 @@ window.addEventListener("keyup", (e) => {
     if(e.keyCode == 32) {
         keyboard.SPACE = true;
     };
+
+    if(e.keyCode == 68) {
+        keyboard.D = true;
+    };
 })
-/*window.addEventListener("keydown", (e) => {
+
+
+window.addEventListener("keyup", (e) => {
     if(e.keyCode == 39) {
-        keyboard.RIGHT = false; console.log('r')
+        keyboard.RIGHT = false; 
     };
 
     if(e.keyCode == 37) {
-        keyboard.LEFT = false; console.log('l')
+        keyboard.LEFT = false; 
 
     };
 
@@ -58,4 +64,8 @@ window.addEventListener("keyup", (e) => {
     if(e.keyCode == 32) {
         keyboard.SPACE = false;
     };
-})*/
+
+    if(e.keyCode == 68) {
+        keyboard.D = false;
+    };
+})
