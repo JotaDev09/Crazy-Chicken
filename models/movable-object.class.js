@@ -33,7 +33,7 @@ class MovableObject extends DrawableObject {
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
-            this.y < mo.y + mo.height
+            this.y < mo.y + mo.height;
     }
 
     //chicken hit Pepe
@@ -71,17 +71,11 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         this.x += this.speed;
-        /*setInterval( () => {
-            this.x += this.speed;  
-          }, 1000 / 60);
-        console.log('moving right');*/
     }
 
     moveLeft() {
         this.x -= this.speed;
-        /*setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);*/
+        
     }
 
     jump() {
