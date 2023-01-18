@@ -68,6 +68,8 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    
+
 
     moveRight() {
         this.x += this.speed;

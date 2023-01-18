@@ -1,5 +1,17 @@
+/*let allBottles = [];
+let level1;
+
+
+for (let i = 0; i < 10; i++) {
+    let bottle = new Bottle('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
+    allBottles.push(bottle)
+
+}
+
+function initLevel() {*/
+
 const level1 = new Level(
-    
+     
     [
         new Chicken(),  new Chicken(),  new Chicken(),  new Chicken(),  new Chicken(),
         new Chicken(),  new Chicken(),  new Chicken(),  new Chicken(),  new Chicken(),
@@ -89,4 +101,22 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719*9),
         new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719*9),
     ],
+
+    [
+        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
+        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
+        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
+        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
+        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
+    ],
+
+    [
+        new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
+        new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
+        new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
+        new Coins(), new Coins(), new Coins(), new Coins(), new Coins()
+    ]
+
+
+   
 );
