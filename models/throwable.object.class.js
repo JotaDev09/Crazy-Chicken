@@ -16,7 +16,7 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
 
-    constructor(x, y) {
+    constructor(x, y, otherDirection) {
         super().loadImage('img/7_statusbars/3_icons/icon_salsa_bottle.png');
         this.loadImages(this.BOTTLE_ROTATION);
         this.loadImages(this.BOTTLE_SPLASH);
@@ -24,17 +24,33 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 80;
         this.width = 90
-        this.throw(this.x, this.y)
+        this.otherDirection = otherDirection;
+        this.throw();
+        this.animateBottle();
     }
 
     throw() {
-        this.speedX = 15
-        this.speedY = 35;
+        this.speedY = 25;
         this.applyGravity();
-        
         setInterval(() => {
-            this.playAnimation(this.BOTTLE_ROTATION);
-            this.x += this.speedX;
-        }, 1000 / 25)
+            if (this.otherDirection) {
+                this.x -= 20;
+            } else {
+                this.otherDirection;
+                this.x += 20;
+            }
+            // world.character.setTimeStamp();
+        }, 25);
+    }
+
+    animateBottle() {
+        setInterval(() => {
+            //if (world.level.endboss[0].isHurtEndboss()) { // TODO Why [0] ??
+              //  console.log('Endboss splash');
+               // this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
+            //} else {
+                this.playAnimation(this.BOTTLE_ROTATION);
+            //}
+        }, 1000 / 25);
     }
 }

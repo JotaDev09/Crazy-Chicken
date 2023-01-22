@@ -29,28 +29,66 @@ class World {
     }
 
     run() {
+       // this.bottleCollisions()
+       
         setInterval(() => {
-            this.checkCollisions();
+            this.pepeCollidingEnemy();
             this.checkThrowObjects();
+            this.pepeCollidingEnemyFromAbove()
         }, 200)
     }
 
     checkThrowObjects() {
-        if(this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);console.log('bottle', keyboard)
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection); console.log('bottle', keyboard)
             this.ThrowableObjects.push(bottle);
-            
+
         }
     }
 
-    checkCollisions() {
+    pepeCollidingEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) ) {
-                this.character.hit();
+            if (this.character.isColliding(enemy) &&
+            enemy.alive == true) {
+                console.log('pollo')
+                this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy)
             }
         });
+
     }
+
+
+    pepeCollidingEnemyFromAbove() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && 
+                this.character.isAboveGround()) {
+                enemy.alive = false;
+               /* playSound(this.chickenSound);*/
+                setTimeout(() => {
+                    this.removeEnemyFromArray(enemy);
+                }, 1000);
+            };
+        }); 
+    }
+
+    removeEnemyFromArray(enemy) {
+        let index = this.level.enemies.indexOf(enemy);
+        this.level.enemies.splice(index, 1);
+    }
+
+    /*bottleCollisions() {
+        this.level.bottles.forEach((bottle) => {
+            console.log('bottle')
+            if (this.character.isColliding(bottle)) {
+                console.log('bottle2')
+                this.character.catchBottle(bottle);
+                console.log('bottle3')
+                this.character.updateBottleBar();
+                console.log('bottle4')
+            }
+        });
+    }*/
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
@@ -72,7 +110,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addToMap(this.statusBarBoss);
         this.addObjectsToMap(this.ThrowableObjects);
-        
+
 
         this.ctx.translate(-this.camera_x, 0);
 

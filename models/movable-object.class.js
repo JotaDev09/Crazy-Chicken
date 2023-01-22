@@ -5,6 +5,14 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    catchBottle = 0
+    groundPosition = 180;
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    };
 
 
     //gravity
@@ -20,21 +28,26 @@ class MovableObject extends DrawableObject {
 
     //gravity back to floor
     isAboveGround() {
-        if (this instanceof ThrowableObject) {
-            return true
+        if (this instanceof ThrowableObject) { // Throwable object should always fall out of the canvas
+            return true;
         } else {
-            return this.y < 180;
+            return this.y < this.groundPosition;
         }
     }
 
 
     // Pepe is Colliding chicken
     isColliding(mo) {
-        return this.x + this.width > mo.x &&
+        return (this.x + this.width - this.offset.right) > mo.x + mo.offset.left &&
+            this.x + this.offset.left < (mo.x + mo.width - mo.offset.right) &&
+            (this.y + this.height - this.offset.bottom) > mo.y + mo.offset.top &&
+            (this.y + this.offset.top) < (mo.y + mo.height - mo.offset.bottom);
+    }
+        /*return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height;
-    }
+    }*/
 
     //chicken hit Pepe
     hit() {
@@ -45,6 +58,20 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
+
+
+    /*//catch bottles
+    catchBottle(obj) {
+        console.log('bottle5')
+        this.catchBottle = this.catchBottle + 1; console.log('bottle6')
+        let index = this.world.level.bottles.indexOf(obj);
+        this.world.level.bottles.splice(index, 1);
+    }
+
+    updateBottleBar() {
+        let percentageOfBottles = this.amountOfBottles / numberOfBottles * 100;
+        this.world.statusBarBottle.setPercentage(percentageOfBottles, this.world.statusBarBottle.IMAGES )
+    }*/
 
     // Pepe is hurting
     isHurt() {
