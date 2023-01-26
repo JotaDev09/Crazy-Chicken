@@ -1,6 +1,7 @@
 class World {
 
     character = new Character();
+    endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -34,13 +35,14 @@ class World {
         setInterval(() => {
             this.pepeCollidingEnemy();
             this.checkThrowObjects();
-            this.pepeCollidingEnemyFromAbove()
+            this.pepeCollidingEnemyFromAbove();
+            this.bottleCollidingChickenBoss();
         }, 200)
     }
 
     checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection); console.log('bottle', keyboard)
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection); //console.log('bottle', keyboard)
             this.ThrowableObjects.push(bottle);
 
         }
@@ -76,6 +78,19 @@ class World {
         let index = this.level.enemies.indexOf(enemy);
         this.level.enemies.splice(index, 1);
     }
+
+
+
+    bottleCollidingChickenBoss() {
+        // let throwableBottle = this.ThrowableObjects
+         this.ThrowableObjects.forEach((bottle) => {
+             if (this.endboss.isColliding(bottle)) {
+                 console.log('hitboss')
+                 this.endboss.hit(10);
+                 this.statusBarBoss.setPercentage(this.endboss.energy)
+             }
+         });
+     }
 
     /*bottleCollisions() {
         this.level.bottles.forEach((bottle) => {

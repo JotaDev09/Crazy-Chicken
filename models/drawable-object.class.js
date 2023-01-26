@@ -32,7 +32,7 @@ class DrawableObject {
      * @param {canvas.getContext('2d');} ctx 
      */
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Piolin || this instanceof Bottle) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Piolin || this instanceof Bottle || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

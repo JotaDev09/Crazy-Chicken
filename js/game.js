@@ -4,12 +4,52 @@ let world;
 let keyboard = new Keyboard()
 
 
+function startGame() {
+    openGame();
+    initlevel();
+    init()
+}
+
 function init() {
     
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     //ctx = canvas.getContext('2d');
    // initLevel();
+}
+
+function openGame() {
+    document.getElementById('menu').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
+}
+
+
+function openControl() {
+    document.getElementById('control').classList.remove('d-none');
+    document.getElementById('menu').classList.add('d-none');
+}
+
+
+function closeControl() {
+    document.getElementById('control').classList.add('d-none');
+    document.getElementById('menu').classList.remove('d-none');
+}
+
+
+function openHelp() {
+    document.getElementById('help').classList.remove('d-none');
+    document.getElementById('menu').classList.add('d-none');
+}
+
+
+function closeHelp() {
+    document.getElementById('help').classList.add('d-none');
+    document.getElementById('menu').classList.remove('d-none');
+}
+
+function winScreen() {
+    document.getElementById('menu').classList.remove('d-none');
+    document.getElementById('canvas').classList.add('d-none');
 }
 
 

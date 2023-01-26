@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Pollo loco</title>
+
 
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
@@ -27,14 +29,103 @@
     <script src="models/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
-</head>
-<body onload="init()">
 
+
+</head>
+
+<body>
+    <div class="logo_j">
+        <img src="/img/10_images/color1.png">
+    </div>
     <h1>El pollo loco</h1>
 
-    <canvas id="canvas" width="720" height="480">
-        
+    <div class="menu_cont" id="menu">
+        <div class="menu_img">
+            <div class="menu_opt" onclick="openControl()">
+                <img src="/img/10_images/settings.png">
+                <a>Game Controls</a>
+            </div>
+            <div class="menu_opt" onclick="startGame()">
+                <img src="/img/10_images/start.png">
+                <a>Start</a>
+            </div>
+            <div class="menu_opt" onclick="openHelp()">
+                <img src="/img/10_images/help.png">
+                <a>Help</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <canvas class="canvas d-none" id="canvas" width="720" height="480">
+
     </canvas>
-    
+
+
+    <div class="d-none control" id="control">
+        <div class="exit" onclick="closeControl()">
+            <a>X</a>
+        </div>
+
+        <div class="control_title">
+            <a>Game Controls</a>
+            <p>You can control Pepe with your arrow-keys on your keyboard.</p>
+        </div>
+
+        <div class="control_moves">
+            <div class="moves">
+                <a>Pepe move left</a>
+                <img src="/img/10_images/links.png">
+            </div>
+            <div class="moves">
+                <a>Pepe move right</a>
+                <img src="/img/10_images/recht.png">
+            </div>
+            <div class="moves">
+                <a>Pepe jump</a>
+                <img src="/img/10_images/space.png">
+            </div>
+            <div class="moves">
+                <a>Pepe throw bottle</a>
+                <img src="/img/10_images/d.png">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="d-none help" id="help">
+        <div class="exit" onclick="closeHelp()">
+            <a>X</a>
+        </div>
+        <div class="info">
+
+            While walking through the dessert of Mexico, you can pick up Coins and Salsabottles.
+
+            Attention: The chickens of Mexico do not like you! If they touch you, you will get hurt.
+
+            To avoid any damage, you can jump over the chickens.
+
+            At the end of your journey, El Pollo Loco awaits you. To defeat her, you can use your bottles.
+
+            But be careful, you do not have infinite amounts of bottles.
+
+            Western images and icons by:
+        </div>
+        <div>
+            Bild von <a
+                href="https://pixabay.com/de/users/mostafaelturkey36-13328910/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5112222">Mostafa
+                Elturkey</a> auf <a
+                href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5112222">Pixabay</a>
+        </div>
+        <a href='https://pngtree.com/so/Red'>Red png from pngtree.com/</a>
+        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons erstellt
+            von Pixel perfect - Flaticon</a>
+        <a href="https://www.flaticon.com/de/kostenlose-icons/ui" title="ui Icons">Ui Icons erstellt von Bharat Icons -
+            Flaticon</a>
+        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons erstellt
+            von Freepik - Flaticon</a>
+    </div>
 </body>
+
 </html>
