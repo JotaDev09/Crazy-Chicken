@@ -6,6 +6,12 @@ class Bottle extends MovableObject {
 
     BOTTLES = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png'];
 
+    offset = {
+        top: 10,
+        right: 20,
+        bottom: 5,
+        left: 35,
+      };
 
     constructor() {
         super();

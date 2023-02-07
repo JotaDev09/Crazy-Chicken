@@ -8,6 +8,13 @@ class Coins extends MovableObject {
         'img/8_coin/coin_2.png'
     ];
 
+    offset = {
+        top: 32,
+        right: 32,
+        bottom: 32,
+        left: 32,
+      };
+
 
     constructor() {
         super();

@@ -7,6 +7,13 @@ class Endboss extends MovableObject {
     energy = 100
     world;
 
+    offset = {
+        top: 50,
+        left: 0,
+        right: 0,
+        bottom: 20,
+      };
+
     ENDBOSS_WALK = [
         './img/4_enemie_boss_chicken/1_walk/G1.png',
         './img/4_enemie_boss_chicken/1_walk/G2.png',
@@ -80,7 +87,7 @@ class Endboss extends MovableObject {
                 console.log('que voy')
             } else {
                 this.playAnimation(this.ENDBOSS_ALERT)
-                console.log('alerta')
+              //  console.log('alerta')
             }
         }, 200);
     }
