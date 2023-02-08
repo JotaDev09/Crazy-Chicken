@@ -12,7 +12,7 @@ class statusBarBoss extends DrawableObject {
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.x = 6870;
+        this.x = 500;
         this.y = -12;
         this.width = 200;
         this.height = 60;

@@ -13,7 +13,7 @@ class Coins extends MovableObject {
         right: 32,
         bottom: 32,
         left: 32,
-      };
+    };
 
 
     constructor() {
@@ -21,16 +21,17 @@ class Coins extends MovableObject {
         this.loadImage('img/8_coin/coin_1.png');
         this.loadImages(this.COINS);
         this.animate();
-
         this.x = 300 + Math.random() * 5920;
         this.y = 40 + Math.random() * 250
     }
 
-
+    /**
+     * animate coins
+     */
     animate() {
         setInterval(() => {
             this.playAnimation(this.COINS);
-    }, 500);
+        }, 500);
     }
-    
+
 }

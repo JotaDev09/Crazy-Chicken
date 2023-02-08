@@ -29,6 +29,9 @@ class ThrowableObject extends MovableObject {
         this.animateBottle();
     }
 
+    /**
+     * throw objects
+     */
     throw() {
         this.speedY = 25;
         this.applyGravity();
@@ -39,10 +42,12 @@ class ThrowableObject extends MovableObject {
                 this.otherDirection;
                 this.x += 20;
             }
-            // world.character.setTimeStamp();
         }, 25);
     }
 
+    /**
+     * bottle rotates
+     */
     animateBottle() {
         setInterval(() => {
             //if (world.level.endboss[0].isHurtEndboss()) { // TODO Why [0] ??

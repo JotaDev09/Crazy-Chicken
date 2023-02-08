@@ -6,13 +6,15 @@ class Endboss extends MovableObject {
     y = 60;
     energy = 100
     world;
+    bossHit_sound = new Audio('audio/endboss_hit.mp3');
+    win_sound = new Audio('audio/win.mp3');
 
     offset = {
         top: 50,
         left: 0,
         right: 0,
         bottom: 20,
-      };
+    };
 
     ENDBOSS_WALK = [
         './img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -68,42 +70,65 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * animate Endbos
+     */
     animate() {
-
-
         setInterval(() => {
-            //  this.x -= this.speed;
-            //}, 1000 / 60);
-            if (this.isDead()) {
-                this.playAnimation(this.ENDBOSS_DEAD);
-                this.gameWon();
-                console.log('boss dead')
-            } else if (this.isHurt()) {
+            if (this.isDead())
+                this.endbossIsDead()
+            else if (this.isHurt())
                 this.endbossHurt();
-                console.log('hurt')
-            } else if (this.energy < 100) {
-                this.playAnimation(this.ENDBOSS_ATTACK)
-                this.move()
-                console.log('que voy')
-            } else {
+            else if (this.energy < 100)
+                this.endbossAttack()
+            else {
                 this.playAnimation(this.ENDBOSS_ALERT)
-              //  console.log('alerta')
             }
         }, 200);
     }
 
-    move() {
-        this.moveLeft();
+    /**
+     * Endboss is dead
+     */
+    endbossIsDead() {
+        super.playAnimation(this.ENDBOSS_DEAD);
+        this.gameWon();
+        console.log('boss dead')
     }
 
-
+    /**
+     * Endboss is hurt
+     */
     endbossHurt() {
-        this.playAnimation(this.ENDBOSS_HURT)
+        super.playAnimation(this.ENDBOSS_HURT);
+        this.bossHit_sound.play()
+        console.log('hurt')
     }
 
+    /**
+     * Endboss is attacking
+     */
+    endbossAttack() {
+        super.playAnimation(this.ENDBOSS_ATTACK)
+        this.move()
+        console.log('que voy')
+    }
+
+    /**
+     * Endboss is moving
+     */
+    move() {
+        super.moveLeft();
+    }
+
+    /**
+     * Endboss is dead, Pepe wins
+     */
     gameWon() {
         setTimeout(() => {
             winScreen();
+            this.win_sound.volume = 0.4;
+            this.win_sound.play();
         }, 3000)
     }
 

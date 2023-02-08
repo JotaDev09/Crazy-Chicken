@@ -11,7 +11,9 @@ function initlevel() {
 }
 
 
-
+/**
+ * create the chickens and endboss
+ */
 function createEnemies() {
     return [
         new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
@@ -22,7 +24,9 @@ function createEnemies() {
     ]
 }
 
-
+/**
+ * create clouds
+ */
 function createClouds() {
     return [
         new Cloud('img/5_background/layers/4_clouds/1.png', 0),
@@ -52,7 +56,9 @@ function createClouds() {
     ]
 }
 
-
+/**
+ * create the background
+ */
 function createBackground() {
     return [
         new BackgroundObject('img/5_background/layers/air.png', -719),
@@ -111,18 +117,22 @@ function createBackground() {
     ]
 }
 
+/**
+ * create the chile bottles
+ */
 function createBottle() {
     return [
         new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
         new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
-        
     ]
 }
 
+/**
+ * create coins
+ */
 function createCoins() {
     return [
         new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
         new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
-        
     ]
 }

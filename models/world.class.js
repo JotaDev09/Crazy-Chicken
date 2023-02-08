@@ -20,6 +20,10 @@ class World {
 
     throwAble = true;
 
+    chickenHit_sound = new Audio('audio/chicken_hit.mp3');
+    coin_sound = new Audio('audio/coin.mp3');
+    bottle_sound = new Audio('audio/bottle.mp3');
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -30,32 +34,54 @@ class World {
         this.run();
     }
 
+    /**
+     * to fit models with world
+     */
     setWorld() {
         this.character.world = this;
     }
 
+    /**
+     * the game is running
+     */
     run() {
-        
-
         setInterval(() => {
-            this.pepeCollidingEnemy();
+            this.allAreColliding()
             this.checkThrowObjects();
-            this.pepeCollidingEnemyFromAbove();
-            this.bottleCollidingChickenBoss();
-            this.catchBottle();
-            this.catchCoin();
+            this.catchObjects()
         }, 200)
     }
 
+    /**
+     * Charachter, enemies and objects are colliding
+     */
+    allAreColliding() {
+        this.pepeCollidingEnemy();
+        this.pepeCollidingEnemyFromAbove();
+        this.bottleCollidingChickenBoss();
+    }
+
+    /**
+     * to catch coins and bottles
+     */
+    catchObjects() {
+        this.catchBottle();
+        this.catchCoin();
+    }
+
+    /**
+     * Character catch throwable objects
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.bottleAmount > 0 && this.throwAble) {
-            setTimeout(() => {
-                this.throwAble = true;
-            }, 2000);
+            setTimeout(() => this.throwAble = true, 2000);
             this.throwBottle();
         }
     }
 
+    /**
+     * Character throws bottle
+     */
     throwBottle() {
         if (this.throwAble) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
@@ -66,119 +92,132 @@ class World {
         }
     }
 
+    /**
+     * character is colliding enemies
+     */
     pepeCollidingEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) &&
                 enemy.alive == true) {
-                //console.log('pollo')
                 this.character.hit(5);
                 this.statusBar.setPercentage(this.character.energy)
             }
         });
-
     }
 
-
+    /**
+     * Character is jumping and colliding enemies from above
+     */
     pepeCollidingEnemyFromAbove() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) &&
                 this.character.isAboveGround()) {
                 enemy.alive = false;
-                /* playSound(this.chickenSound);*/
-                setTimeout(() => {
-                    this.removeEnemyFromArray(enemy);
-                }, 1000);
+                this.chickenHit_sound.play()
+                setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
             };
         });
     }
 
+    /**
+     * when enemie is dead, remove it from canvas
+     */
     removeEnemyFromArray(enemy) {
         let index = this.level.enemies.indexOf(enemy);
         this.level.enemies.splice(index, 1);
     }
 
-
-
+    /**
+     * bottle is colliding Endboss
+     */
     bottleCollidingChickenBoss() {
-        // let throwableBottle = this.ThrowableObjects
         this.ThrowableObjects.forEach((bottle) => {
             if (this.endboss.isColliding(bottle)) {
-                //console.log('hitboss')
                 this.endboss.hit(10);
                 this.statusBarBoss.setPercentage(this.endboss.energy)
             }
         });
     }
 
-
+    /**
+     * Character catchs bottle
+     */
     catchBottle() {
         this.level.bottles.forEach((bottles) => {
-            if (this.isCollidingObj(bottles)) {
-                console.log('bottle')
-                this.bottleAmount += 1;
-                this.hideBottle(bottles);
-                //this.collectBottle.play();
-                this.statusBarBottle.setPercentage(this.bottleAmount * 10);
-            }
+            if (this.isCollidingObj(bottles)) this.statusBottle(bottles)
         });
     }
 
+    /**
+     * status bar changes when charachter catchs bottle
+     */
+    statusBottle(bottles) {
+        console.log('bottle')
+        this.bottleAmount += 1;
+        this.hideBottle(bottles);
+        this.bottle_sound.volume = 1
+        this.bottle_sound.play();
+        this.statusBarBottle.setPercentage(this.bottleAmount * 10);
+    }
+
+    /**
+     * Character catchs coins
+     */
     catchCoin() {
         this.level.coins.forEach((coins) => {
-            if (this.isCollidingObj(coins)) {
-                console.log('coins')
-                this.coinsAmount += 1;
-                this.hideCoins(coins);
-                //this.collectBottle.play();
-                this.statusBarCoins.setPercentage(this.coinsAmount * 10);
-            }
+            if (this.isCollidingObj(coins)) this.statusCoins(coins)
         });
     }
 
+    /**
+     * status bar changes when charachter catchs coins
+     */
+    statusCoins(coins) {
+        console.log('coins')
+        this.coinsAmount += 1;
+        this.hideCoins(coins);
+        this.coin_sound.volume = 0.4
+        this.coin_sound.play();
+        this.statusBarCoins.setPercentage(this.coinsAmount * 10);
+    }
 
+    /**
+     * character is colliding with objects
+     */
     isCollidingObj(obj) {
         return this.character.isColliding(obj) &&
             obj.height != 0 &&
             obj.width != 0
     }
 
-
+    /**
+     * Bottle hides when is catching
+     */
     hideBottle(bottles) {
         bottles.height = 0;
         bottles.width = 0;
     }
 
+    /**
+     * Coin hides when is catching
+     */
     hideCoins(coins) {
         coins.height = 0;
         coins.width = 0;
     }
 
-
+    /**
+     * draw all the objects, character, enemies, background etc. in the world
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
         this.ctx.translate(this.camera_x, 0);
-        this.addObjectsToMap(this.level.backgroundObjects);
-
+        this.addScene();
+        this.addMoveableObjects();
         this.ctx.translate(-this.camera_x, 0);
-        // Space for fixed objects
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarCoins);
-        this.addToMap(this.statusBarBottle);
-        this.ctx.translate(this.camera_x, 0)
+        this.addStatusBar();
 
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.coins);
-        this.addToMap(this.statusBarBoss);
-        this.addObjectsToMap(this.ThrowableObjects);
-
-
-        this.ctx.translate(-this.camera_x, 0);
-
-        //draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function () {
             self.draw()
@@ -186,12 +225,47 @@ class World {
 
     }
 
+    /**
+     * draw all the moveable objects
+     */
+    addMoveableObjects() {
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.ThrowableObjects);
+    }
+
+    /**
+     * draw all the status bar
+     */
+    addStatusBar() {
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarCoins);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarBoss);
+    }
+
+    /**
+     * draw all the background and clouds
+     */
+    addScene() {
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.backgroundObjects);
+    }
+
+    /**
+     * add all the objects to the map
+     */
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o)
         });
     };
 
+    /**
+     * depends the directions, draw the image
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);

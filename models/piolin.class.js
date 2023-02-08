@@ -23,25 +23,32 @@ class Piolin extends MovableObject {
         this.x = 500 + Math.random() * 7000; // entre 200 y 700
         this.speed = 0.30 + Math.random() * 0.7;
         this.animate();
-
     }
 
+    /**
+     * piolin animates
+     */
     animate() {
         this.moveLeft();
+        setInterval(() => this.piolinIsWalking(), 200);
+        setInterval(() => this.piolinIsDead(), 1000 / 60);
+    }
 
-        setInterval(() => {
-            if(this.alive == true)
-            this.playAnimation(this.IMAGES_WALKING);
-        }, 200);
+    /**
+     * piolin walks
+     */
+    piolinIsWalking() {
+        if(this.alive == true)
+        super.playAnimation(this.IMAGES_WALKING);
+    }
 
-        setInterval(() => {
-            if (this.alive == false) {
-                this.playAnimation(this.IMAGES_DEAD)
-            } else 
-            
-            this.x -= this.speed;
-        }, 1000 / 60);
-
-        
+    /**
+     * piolin is dead
+     */
+    piolinIsDead() {
+        if (this.alive == false) {
+            super.playAnimation(this.IMAGES_DEAD)
+        } else 
+        this.x -= this.speed;
     }
 }
