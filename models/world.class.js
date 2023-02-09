@@ -134,6 +134,7 @@ class World {
         this.ThrowableObjects.forEach((bottle) => {
             if (this.endboss.isColliding(bottle)) {
                 this.endboss.hit(10);
+                this.ThrowableObjects.hitEndboss = true;
                 this.statusBarBoss.setPercentage(this.endboss.energy)
             }
         });

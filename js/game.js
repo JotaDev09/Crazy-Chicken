@@ -58,7 +58,7 @@ function openHelp() {
 }
 
 /**
- * close menu of helo
+ * close menu of help
  */
 function closeHelp() {
     document.getElementById('help').classList.add('d-none');

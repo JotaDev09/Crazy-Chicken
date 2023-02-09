@@ -8,6 +8,7 @@ class Endboss extends MovableObject {
     world;
     bossHit_sound = new Audio('audio/endboss_hit.mp3');
     win_sound = new Audio('audio/win.mp3');
+    speed = 20
 
     offset = {
         top: 50,
