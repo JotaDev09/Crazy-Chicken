@@ -59,9 +59,27 @@
     </div>
 
     <!--Start Game-->
-    <canvas class="canvas d-none" id="canvas" width="720" height="480">
-        
-    </div><img src="img/10_images/volume.png">
+    <div class="game">
+        <div class="icons_sett d-none" id="icons_set">
+            <img src="img/10_images/volume.png" onclick="muteSound()" id="mute">
+            <img class="d-none" src="img/10_images/mute.png" onclick="sound()" id="sound">
+            <img src="img/10_images/fullscreen.png" onclick="fullscreen()">
+        </div>
+
+        <canvas class="canvas d-none" id="canvas" width="720" height="480"></canvas>
+
+        <div class="btns_phone d-none" id="btnsPhone">
+            <div class="phone_left">
+                <button class="button_phone" id="btnLeft"><img src="/img/10_images/left.png"></button>
+                <button class="button_phone" id="btnRight"><img src="/img/10_images/right.png"></button>
+            </div>
+            <div class="phone_right">
+                <button class="button_phone" id="btnUp"><img src="/img/10_images/up.png"></button>
+                <button class="button_phone" id="btnThrow"><img src="/img/10_images/throw.png"></button>
+            </div>
+        </div>
+
+    </div>
 
     <!--Controls-->
     <div class="d-none control" id="control">
@@ -143,14 +161,21 @@
                 href="https://pixabay.com/de//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=5112222">Pixabay</a>
         </div>
         <a href='https://pngtree.com/so/Red'>Red png from pngtree.com/</a>
-        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons erstellt
+        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons
+            erstellt
             von Pixel perfect - Flaticon</a>
-        <a href="https://www.flaticon.com/de/kostenlose-icons/ui" title="ui Icons">Ui Icons erstellt von Bharat Icons -
+        <a href="https://www.flaticon.com/de/kostenlose-icons/ui" title="ui Icons">Ui Icons erstellt von Bharat
+            Icons -
             Flaticon</a>
-        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons erstellt
+        <a href="https://www.flaticon.com/de/kostenlose-icons/tastatur" title="tastatur Icons">Tastatur Icons
+            erstellt
             von Freepik - Flaticon</a>
         <a target="_blank" href="https://icons8.com/icon/41041/kein-ton">Kein Ton</a> icon by <a target="_blank"
             href="https://icons8.com">Icons8</a>
+        <a target="_blank" href="https://icons8.com/icon/50718/an-breite-anpassen">An Breite anpassen</a> icon by <a
+            target="_blank" href="https://icons8.com">Icons8</a>
+        <a target="_blank" href="https://icons8.com/icon/FIPc5OnXnK5h/eingekreistes-rangabzeichen-oben">Eingekreistes
+            Rangabzeichen Oben</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
     </div>
 </body>
 

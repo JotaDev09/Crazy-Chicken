@@ -4,6 +4,7 @@ let world;
 let keyboard = new Keyboard()
 
 mariachi_sound = new Audio('audio/mariachi.mp3');
+mute = false;
 
 
 /**
@@ -12,9 +13,21 @@ mariachi_sound = new Audio('audio/mariachi.mp3');
 function startGame() {
     openGame();
     initlevel();
-    init()
+    init();
+    checkSmartphone();
+    phoneButtons();
 }
 
+/**
+ * check mobile device
+ */
+function checkSmartphone() {
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        //document.write("mobile device");
+        document.getElementById('btnsPhone').classList.remove('d-none');
+    }
+}
 /**
  * init canvas
  */
@@ -29,6 +42,7 @@ function init() {
 function openGame() {
     document.getElementById('menu').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('icons_set').classList.remove('d-none');
     mariachi_sound.volume = 0.1;
     this.mariachi_sound.play();
 }
@@ -71,6 +85,7 @@ function closeHelp() {
 function winScreen() {
     document.getElementById('winScreen').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('icons_set').classList.add('d-none');
     this.mariachi_sound.pause()
 }
 
@@ -80,6 +95,7 @@ function winScreen() {
 function lostScreen() {
     document.getElementById('lostScreen').classList.remove('d-none');
     document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('icons_set').classList.add('d-none');
     this.mariachi_sound.pause()
 }
 
@@ -99,6 +115,61 @@ function backToMenu() {
     document.getElementById('winScreen').classList.add('d-none');
     document.getElementById('menu').classList.remove('d-none');
 }
+
+/*
+ * open fullscreen 
+ */
+function fullscreen() {
+    let fullscreen = document.getElementById('canvas');
+    openFullscreen(fullscreen);
+}
+
+/*
+ * View in fullscreen 
+ */
+function openFullscreen(elem) {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+/*
+ * Close fullscreen 
+ */
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+/*
+ * principal song stop 
+ */
+function muteSound() {
+    mariachi_sound.pause();
+    mute = true;
+    document.getElementById('mute').classList.add('d-none')
+    document.getElementById('sound').classList.remove('d-none')
+}
+
+/*
+   * principal song play
+   */
+function sound() {
+    mariachi_sound.play();
+    mute = false;
+    document.getElementById('mute').classList.remove('d-none')
+    document.getElementById('sound').classList.add('d-none')
+}
+
 
 /**
  * keyboard settings
@@ -157,3 +228,49 @@ window.addEventListener("keyup", (e) => {
         keyboard.D = false;
     };
 })
+
+function phoneButtons() {
+    document.getElementById("canvas").addEventListener("touchstart", (e) => {
+      e.preventDefault();
+    });
+  
+    document.getElementById("btnLeft").addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keyboard.LEFT = true;
+    });
+  
+    document.getElementById("btnLeft").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keyboard.LEFT = false;
+    });
+  
+    document.getElementById("btnRight").addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keyboard.RIGHT = true;
+    });
+  
+    document.getElementById("btnRight").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keyboard.RIGHT = false;
+    });
+  
+    document.getElementById("btnUp").addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keyboard.SPACE = true;
+    });
+  
+    document.getElementById("btnUp").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keyboard.SPACE = false;
+    });
+  
+    document.getElementById("btnThrow").addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      keyboard.D = true;
+    });
+  
+    document.getElementById("btnThrow").addEventListener("touchend", (e) => {
+      e.preventDefault();
+      keyboard.D = false;
+    });
+  }
