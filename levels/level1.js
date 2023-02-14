@@ -5,8 +5,8 @@ function initlevel() {
         createEnemies(),
         createClouds(),
         createBackground(),
-        createCoins(),
         createBottle(),
+        createCoins(),
     );
 }
 

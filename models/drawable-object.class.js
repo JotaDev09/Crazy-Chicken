@@ -30,7 +30,7 @@ class DrawableObject {
     /**
      * 
      * @param {canvas.getContext('2d');} ctx 
-     */
+     
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Piolin || this instanceof Bottle || this instanceof Endboss || this instanceof Coins) {
             ctx.beginPath();
@@ -41,6 +41,7 @@ class DrawableObject {
             ctx.stroke();
         }
     }
+    */
 
     /**
     * loads all images from an image array

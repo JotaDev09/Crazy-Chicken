@@ -1,6 +1,6 @@
 body {
     min-height: 100vh;
-    background: url(/img/10_images/desert-g95b9ff45f_1280.png);
+    background: url(img/10_images/desert-g95b9ff45f_1280.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@ body {
     src: url('./fonts/zabars.ttf') format('truetype');
 }
 
-
+/* title */
 h1 {
     font-size: 85px;
     letter-spacing: 8px;
@@ -34,11 +34,13 @@ h1 {
     height: 125px;
 }
 
+/* canvas */
 canvas {
     display: block;
     background-color: black;
 }
 
+/* menu principal */
 .menu_cont {
     padding-top: 100px;
 }
@@ -80,6 +82,7 @@ canvas {
     transform: translateY(-200px);
 }
 
+/* game */
 .game {
     position: relative;
     overflow: hidden;
@@ -87,6 +90,7 @@ canvas {
     height: 480px;
 }
 
+/* volume/fullscreen */
 .icons_sett {
     width: 100%;
     position: absolute;
@@ -104,9 +108,13 @@ canvas {
     width: 40px;
 }
 
-.button_phone{
-    height: 35x;
-    width: 35px;
+/* buttons smartphone */
+.phone_right {
+    padding-right: 5px;
+}
+
+.button_phone {
+    height: 55x;
     cursor: pointer;
     background-color: transparent;
     border: none;
@@ -123,22 +131,24 @@ canvas {
     user-select: none;
 }
 
-.btns_phone img{
+.btns_phone img {
     height: 50px;
     width: 50px;
 }
 
+/* display: none */
 .d-none {
     display: none !important;
 }
 
+/* controls info */
 .control {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 35%;
-    height: 45%;
+    width: 700px;
+    height: 500px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 5px 5px 15px 5px #000000;
@@ -193,14 +203,38 @@ canvas {
     height: 35px;
 }
 
+/* screen to rotate phone */
+.turn_phone {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
 
+.turn_phone div {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.rotate {
+    width: 125px;
+    height: 125px;
+}
+
+/* screen help */
 .help {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 55%;
-    height: 45%;
+    width: 700px;
+    height: 500px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 5px 5px 15px 5px #000000;
@@ -222,6 +256,7 @@ canvas {
     padding-bottom: 20px;
 }
 
+/* win screen */
 .img_win {
     display: flex;
     flex-direction: column;
@@ -241,12 +276,14 @@ canvas {
     border-radius: 15px;
 }
 
+/* lost screen */
 .img_lost {
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 5px 5px 15px 5px #000000;
 }
 
+/* buttons in lost and win screen */
 .buttons_end {
     display: flex;
     justify-content: space-between;
@@ -302,27 +339,136 @@ canvas {
 }
 
 .button_end.orange {
-    background: repeating-linear-gradient( 45deg, #ffc800, #ffc800 5px, #ffc200 5px, #ffc200 10px);
-   box-shadow: 0 6px 0 #b76113, 0 8px 1px 1px rgba(0,0,0,.3), 0 10px 0 5px #75421f, 0 12px 0 5px #8a542b, 0 15px 0 5px #593116, 0 15px 1px 6px rgba(0,0,0,.3);
-   border-bottom: 3px solid rgba(205, 102, 0, 0.5);
-   text-shadow: 2px 2px 1px #e78700, -2px 2px 1px #e78700, 2px -2px 1px #e78700, -2px -2px 1px #e78700, 0px 2px 1px #e78700, 0px -2px 1px #e78700, 0px 4px 1px #c96100, 2px 4px 1px #c96100, -2px 4px 1px  #c96100;
- }
+    background: repeating-linear-gradient(45deg, #ffc800, #ffc800 5px, #ffc200 5px, #ffc200 10px);
+    box-shadow: 0 6px 0 #b76113, 0 8px 1px 1px rgba(0, 0, 0, .3), 0 10px 0 5px #75421f, 0 12px 0 5px #8a542b, 0 15px 0 5px #593116, 0 15px 1px 6px rgba(0, 0, 0, .3);
+    border-bottom: 3px solid rgba(205, 102, 0, 0.5);
+    text-shadow: 2px 2px 1px #e78700, -2px 2px 1px #e78700, 2px -2px 1px #e78700, -2px -2px 1px #e78700, 0px 2px 1px #e78700, 0px -2px 1px #e78700, 0px 4px 1px #c96100, 2px 4px 1px #c96100, -2px 4px 1px #c96100;
+}
 
- .button_end.orange:hover {
-   top:2px;
-   box-shadow: 0 4px 0 #b76113, 0 6px 1px 1px rgba(0,0,0,.3), 0 8px 0 5px #75421f, 0 10px 0 5px #8a542b, 0 13px 0 5px #593116, 0 13px 1px 6px rgba(0,0,0,.3);
- }
+.button_end.orange:hover {
+    top: 2px;
+    box-shadow: 0 4px 0 #b76113, 0 6px 1px 1px rgba(0, 0, 0, .3), 0 8px 0 5px #75421f, 0 10px 0 5px #8a542b, 0 13px 0 5px #593116, 0 13px 1px 6px rgba(0, 0, 0, .3);
+}
 
- /* smartphone */
+/* smartphone */
 
- @media only screen and (max-width : 720px) {
+@media only screen and (max-width : 720px) {
     canvas {
+        position: absolute;
         width: 100%;
     }
- }
 
- @media only screen and (max-height : 480px) {
+    .logo_j img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .title_game {
+        font-size: 50px;
+        
+        margin: 10px;
+    }
+
+    .menu_cont {
+        padding-top: 10px;
+        width: 720px;
+    }
+
+    .menu_img {
+        justify-content: space-around;
+    }
+
+    .menu_opt {
+        max-width: 140px;
+    }
+
+    .menu_opt img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .control {
+        width: 80%;
+        margin-bottom: 15px;
+    }
+
+    .exit {
+        font-size: 25px;
+    }
+
+    .control_title {
+        margin-bottom: 10px;
+    }
+
+    .control_title a {
+        font-size: 30px;
+    }
+
+    .control_title p {
+        font-size: 23px;
+    }
+
+    .help {
+        width: 90%;
+        margin-bottom: 30px;
+    }
+
+
+    .info {
+        font-size: 25px;
+        padding-top: 5px;
+        padding-bottom: 15px;
+    }
+
+    .thanks_to {
+        width: 100%;
+        font-size: 15px;
+    }
+
+    .lost_screen {
+        flex-direction: column;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .win_screen {
+        flex-direction: column;
+        position: absolute;
+        z-index: 1;
+    }
+
+    .display {
+        width: 720px;
+    }
+
+    .buttons_end {
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        justify-content: space-between;
+    }
+
+    .button_end {
+        width: 150px;
+        height: 45px;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+@media only screen and (max-height : 480px) {
     canvas {
         height: 100vh;
     }
- }
+
+    body {
+        max-height: 480px;
+        background-size: auto;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .turn_phone {
+        display: block !important
+    }
+}
