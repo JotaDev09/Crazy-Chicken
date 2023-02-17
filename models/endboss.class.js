@@ -17,13 +17,6 @@ class Endboss extends MovableObject {
         bottom: 20,
     };
 
-    ENDBOSS_WALK = [
-        './img/4_enemie_boss_chicken/1_walk/G1.png',
-        './img/4_enemie_boss_chicken/1_walk/G2.png',
-        './img/4_enemie_boss_chicken/1_walk/G3.png',
-        './img/4_enemie_boss_chicken/1_walk/G4.png',
-    ]
-
     ENDBOSS_ALERT = [
         './img/4_enemie_boss_chicken/2_alert/G5.png',
         './img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -34,6 +27,13 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/2_alert/G11.png',
         './img/4_enemie_boss_chicken/2_alert/G12.png',
     ];
+
+    ENDBOSS_WALK = [
+        './img/4_enemie_boss_chicken/1_walk/G1.png',
+        './img/4_enemie_boss_chicken/1_walk/G2.png',
+        './img/4_enemie_boss_chicken/1_walk/G3.png',
+        './img/4_enemie_boss_chicken/1_walk/G4.png',
+    ]
 
     ENDBOSS_ATTACK = [
         './img/4_enemie_boss_chicken/3_attack/G13.png',
@@ -75,30 +75,30 @@ class Endboss extends MovableObject {
      * Intervals to animate Endboss
      */
     animate() {
-        setStoppableInterval(() => this.playAnimation(this.ENDBOSS_ALERT), 200);
-        setStoppableInterval(() => this.endbossAnimate(), 150);
+        setStoppableInterval(() => this.playAnimation(this.ENDBOSS_ALERT), 120);
+        setStoppableInterval(() => this.endbossAnimate(), 200);
     }
 
     /**
      * animate Endbos
      */
     endbossAnimate() {
-        if (this.isDead())
-            this.endbossIsDead()
-        else if (this.isHurt())
+        if (this.isDead()) {
+            this.endbossIsDead();
+        } else if (this.isHurt()) {
             this.endbossHurt();
-        else if (this.energy < 100)
-            this.endbossAttack()
-        else {
-            this.playAnimation(this.ENDBOSS_ALERT)
+        } else if (this.energy < 100) {
+            this.endbossAttack();
+        } else {
+            this.playAnimation(this.ENDBOSS_ALERT);
         }
     }
-
+        
     /**
      * Endboss is hurt
      */
     endbossHurt() {
-        this.playAnimation(this.ENDBOSS_HURT);
+        super.playAnimation(this.ENDBOSS_HURT);
         this.bossHit_sound.play()
         console.log('endboss hurt')
     }
@@ -107,7 +107,7 @@ class Endboss extends MovableObject {
      * Endboss is attacking
      */
     endbossAttack() {
-        this.playAnimation(this.ENDBOSS_ATTACK)
+        super.playAnimation(this.ENDBOSS_ATTACK)
         this.move()
         console.log('endboss moves')
     }
@@ -116,7 +116,7 @@ class Endboss extends MovableObject {
      * Endboss is dead
      */
     endbossIsDead() {
-        this.playAnimation(this.ENDBOSS_DEAD);
+        super.playAnimation(this.ENDBOSS_DEAD);
         this.gameWon();
         stopInterval();
         console.log('endboss dead')
