@@ -60,9 +60,9 @@ class Endboss extends MovableObject {
 
 
     constructor() {
-        super().loadImage('./img/4_enemie_boss_chicken/2_alert/G5.png')
-        this.loadImages(this.ENDBOSS_WALK);
+        super().loadImage(this.ENDBOSS_ALERT[0]);
         this.loadImages(this.ENDBOSS_ALERT);
+        this.loadImages(this.ENDBOSS_WALK);
         this.loadImages(this.ENDBOSS_ATTACK);
         this.loadImages(this.ENDBOSS_HURT);
         this.loadImages(this.ENDBOSS_DEAD);
@@ -72,54 +72,61 @@ class Endboss extends MovableObject {
     }
 
     /**
-     * animate Endbos
+     * Intervals to animate Endboss
      */
     animate() {
-        setInterval(() => {
-            if (this.isDead())
-                this.endbossIsDead()
-            else if (this.isHurt())
-                this.endbossHurt();
-            else if (this.energy < 100)
-                this.endbossAttack()
-            else {
-                this.playAnimation(this.ENDBOSS_ALERT)
-            }
-        }, 200);
+        setStoppableInterval(() => this.playAnimation(this.ENDBOSS_ALERT), 200);
+        setStoppableInterval(() => this.endbossAnimate(), 150);
     }
 
     /**
-     * Endboss is dead
+     * animate Endbos
      */
-    endbossIsDead() {
-        super.playAnimation(this.ENDBOSS_DEAD);
-        this.gameWon();
-        console.log('boss dead')
+    endbossAnimate() {
+        if (this.isDead())
+            this.endbossIsDead()
+        else if (this.isHurt())
+            this.endbossHurt();
+        else if (this.energy < 100)
+            this.endbossAttack()
+        else {
+            this.playAnimation(this.ENDBOSS_ALERT)
+        }
     }
 
     /**
      * Endboss is hurt
      */
     endbossHurt() {
-        super.playAnimation(this.ENDBOSS_HURT);
+        this.playAnimation(this.ENDBOSS_HURT);
         this.bossHit_sound.play()
-        console.log('hurt')
+        console.log('endboss hurt')
     }
 
     /**
      * Endboss is attacking
      */
     endbossAttack() {
-        super.playAnimation(this.ENDBOSS_ATTACK)
+        this.playAnimation(this.ENDBOSS_ATTACK)
         this.move()
-        console.log('que voy')
+        console.log('endboss moves')
+    }
+
+    /**
+     * Endboss is dead
+     */
+    endbossIsDead() {
+        this.playAnimation(this.ENDBOSS_DEAD);
+        this.gameWon();
+        stopInterval();
+        console.log('endboss dead')
     }
 
     /**
      * Endboss is moving
      */
     move() {
-        super.moveLeft();
+        this.moveLeft();
     }
 
     /**

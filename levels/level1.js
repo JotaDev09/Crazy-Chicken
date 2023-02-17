@@ -3,6 +3,7 @@ function initlevel() {
 
     level1 = new Level(
         createEnemies(),
+        createEndboss(),
         createClouds(),
         createBackground(),
         createBottle(),
@@ -20,6 +21,11 @@ function createEnemies() {
         new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
         new Piolin(), new Piolin(), new Piolin(), new Piolin(), new Piolin(),
         new Piolin(), new Piolin(), new Piolin(), new Piolin(), new Piolin(),
+    ]
+}
+
+function createEndboss() {
+    return [
         new Endboss(),
     ]
 }

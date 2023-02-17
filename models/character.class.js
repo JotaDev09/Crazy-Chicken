@@ -103,8 +103,8 @@ class Character extends MovableObject {
      * animates Character
      */
     animate() {
-        setInterval(() => this.moveCharacter(), 1000 / 60);
-        setInterval(() => this.characterAnimation(), 150);
+        setStoppableInterval(() => this.moveCharacter(), 1000 / 60);
+        setStoppableInterval(() => this.characterAnimation(), 50);
     }
 
     /**
@@ -185,7 +185,9 @@ class Character extends MovableObject {
 
 
     charachterIsDead() {
-        super.playAnimation(this.IMAGES_DEAD)
+        super.playAnimation(this.IMAGES_DEAD);
+        this.dead_sound.volume = 0.8
+        this.dead_sound.play();
         this.gameLost();
     }
 
@@ -233,13 +235,11 @@ class Character extends MovableObject {
      * charachter is dead
      */
     gameLost() {
-        this.dead_sound.volume = 0.8
-        this.dead_sound.play();
+        this.dead_sound.pause()
         setTimeout(() => {
             lostScreen();
             this.lost_sound.volume = 0.4
             this.lost_sound.play();
-            this.dead_sound.pause()
         }, 3000)
     }
 }

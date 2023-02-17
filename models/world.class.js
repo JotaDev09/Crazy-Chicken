@@ -2,6 +2,8 @@ class World {
 
     character = new Character();
     endboss = new Endboss();
+    chicken = new Chicken();
+    Endboss = level1.enemies[20];
     level = level1;
     canvas;
     ctx;
@@ -39,34 +41,25 @@ class World {
      */
     setWorld() {
         this.character.world = this;
+        this.chicken.world = this;
+        this.endboss.world = this;
     }
 
     /**
-     * the game is running
+     * the game is running with stoppable intervals
      */
     run() {
-        setInterval(() => {
-            this.allAreColliding()
+        setStoppableInterval(() => {
+            this.catchBottle();
+            this.catchCoin();
             this.checkThrowObjects();
-            this.catchObjects()
+            this.bottleCollidingChickenBoss();
+            this.pepeCollidingEnemy();
         }, 200)
-    }
 
-    /**
-     * Charachter, enemies and objects are colliding
-     */
-    allAreColliding() {
-        this.pepeCollidingEnemy();
-        this.pepeCollidingEnemyFromAbove();
-        this.bottleCollidingChickenBoss();
-    }
-
-    /**
-     * to catch coins and bottles
-     */
-    catchObjects() {
-        this.catchBottle();
-        this.catchCoin();
+        setStoppableInterval(() => {
+            this.pepeCollidingEnemyFromAbove();
+        }, 1000 / 60)
     }
 
     /**
@@ -232,6 +225,7 @@ class World {
     addMoveableObjects() {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.ThrowableObjects);
@@ -272,7 +266,7 @@ class World {
             this.flipImage(mo);
         }
         mo.draw(this.ctx);
-       // mo.drawFrame(this.ctx)
+        // mo.drawFrame(this.ctx)
 
         if (mo.otherDirection) {
             this.flipImageBack(mo)
