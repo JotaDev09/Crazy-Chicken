@@ -1,22 +1,19 @@
 class Bottle extends MovableObject {
-
-    width = 90;
-    height = 80;
-    y = 350
-
-    BOTTLES = ['img/6_salsa_bottle/1_salsa_bottle_on_ground.png'];
-
+    height = 100;
+    width = 80;
+    y = 330;
+    splash = false;
+  
     offset = {
-        top: 10,
-        right: 20,
-        bottom: 5,
-        left: 35,
+      top: 14,
+      right: 15,
+      bottom: 10,
+      left: 35,
     };
-
+  
     constructor() {
-        super();
-        this.loadImage(this.BOTTLES);
-        this.x = 300 + Math.random() * 5920
+      super().loadImage("img/6_salsa_bottle/1_salsa_bottle_on_ground.png");
+      this.x = 1000 + Math.random() * 5700;
     }
-
-}
+  }
+  

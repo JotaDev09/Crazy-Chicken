@@ -1,135 +1,117 @@
 class Endboss extends MovableObject {
-
+    speed = 18.5;
     height = 400;
-    width = 200;
-    x = 6800
-    y = 60;
-    energy = 100
-    world;
+    width = 250;
+    y = 50;
+    energy = 30;
     bossHit_sound = new Audio('audio/endboss_hit.mp3');
-    win_sound = new Audio('audio/win.mp3');
-    speed = 5;
-    alive = true
-
+    win_sound = new Audio("audio/win.mp3");
+  
     offset = {
-        top: 50,
-        left: 0,
-        right: 0,
-        bottom: 20,
+      top: 60,
+      right: 20,
+      bottom: 15,
+      left: 20,
     };
-
-    
-    ENDBOSS_ALERT = [
-        'img/4_enemie_boss_chicken/2_alert/G5.png',
-        'img/4_enemie_boss_chicken/2_alert/G6.png',
-        'img/4_enemie_boss_chicken/2_alert/G7.png',
-        'img/4_enemie_boss_chicken/2_alert/G8.png',
-        'img/4_enemie_boss_chicken/2_alert/G9.png',
-        'img/4_enemie_boss_chicken/2_alert/G10.png',
-        'img/4_enemie_boss_chicken/2_alert/G11.png',
-        'img/4_enemie_boss_chicken/2_alert/G12.png',
+  
+    endboss_alert = [
+      "img/4_enemie_boss_chicken/2_alert/G5.png",
+      "img/4_enemie_boss_chicken/2_alert/G6.png",
+      "img/4_enemie_boss_chicken/2_alert/G7.png",
+      "img/4_enemie_boss_chicken/2_alert/G8.png",
+      "img/4_enemie_boss_chicken/2_alert/G9.png",
+      "img/4_enemie_boss_chicken/2_alert/G10.png",
+      "img/4_enemie_boss_chicken/2_alert/G11.png",
+      "img/4_enemie_boss_chicken/2_alert/G12.png",
     ];
-
-    ENDBOSS_WALK = [
-        'img/4_enemie_boss_chicken/1_walk/G1.png',
-        'img/4_enemie_boss_chicken/1_walk/G2.png',
-        'img/4_enemie_boss_chicken/1_walk/G3.png',
-        'img/4_enemie_boss_chicken/1_walk/G4.png',
-    ]
-
-    ENDBOSS_ATTACK = [
-        'img/4_enemie_boss_chicken/3_attack/G13.png',
-        'img/4_enemie_boss_chicken/3_attack/G14.png',
-        'img/4_enemie_boss_chicken/3_attack/G15.png',
-        'img/4_enemie_boss_chicken/3_attack/G16.png',
-        'img/4_enemie_boss_chicken/3_attack/G17.png',
-        'img/4_enemie_boss_chicken/3_attack/G18.png',
-        'img/4_enemie_boss_chicken/3_attack/G19.png',
-        'img/4_enemie_boss_chicken/3_attack/G20.png',
+  
+    endboss_walks = [
+      "img/4_enemie_boss_chicken/1_walk/G1.png",
+      "img/4_enemie_boss_chicken/1_walk/G2.png",
+      "img/4_enemie_boss_chicken/1_walk/G3.png",
+      "img/4_enemie_boss_chicken/1_walk/G4.png",
     ];
-
-    ENDBOSS_HURT = [
-        'img/4_enemie_boss_chicken/4_hurt/G21.png',
-        'img/4_enemie_boss_chicken/4_hurt/G22.png',
-        'img/4_enemie_boss_chicken/4_hurt/G23.png',
+  
+    endboss_hurt = [
+      "img/4_enemie_boss_chicken/4_hurt/G21.png",
+      "img/4_enemie_boss_chicken/4_hurt/G22.png",
+      "img/4_enemie_boss_chicken/4_hurt/G23.png",
     ];
-
-    ENDBOSS_DEAD = [
-        'img/4_enemie_boss_chicken/5_dead/G24.png',
-        'img/4_enemie_boss_chicken/5_dead/G25.png',
-        'img/4_enemie_boss_chicken/5_dead/G26.png',
+  
+    endboss_dead = [
+      "img/4_enemie_boss_chicken/5_dead/G24.png",
+      "img/4_enemie_boss_chicken/5_dead/G25.png",
+      "img/4_enemie_boss_chicken/5_dead/G26.png",
     ];
-
-
+  
     constructor() {
-        super().loadImage(this.ENDBOSS_ALERT[0]);
-        this.loadImages(this.ENDBOSS_ALERT);
-        this.loadImages(this.ENDBOSS_WALK);
-        this.loadImages(this.ENDBOSS_ATTACK);
-        this.loadImages(this.ENDBOSS_HURT);
-        this.loadImages(this.ENDBOSS_DEAD);
-
-        this.animate();
+      super().loadImage(this.endboss_alert[0]);
+      this.loadImages(this.endboss_hurt);
+      this.loadImages(this.endboss_alert);
+      this.loadImages(this.endboss_walks);
+      this.loadImages(this.endboss_dead);
+      this.x = 6800;
+      this.animate();
     }
-
+  
     /**
-     * Intervals to animate Endboss
+     * animates chicken
      */
     animate() {
-        setStoppableInterval(() => this.playAnimation(this.ENDBOSS_ALERT), 150);
-        setStoppableInterval(() => this.endbossAnimate(), 200);
+      setStoppableInterval(() => this.playAnimation(this.endboss_alert), 200);
+      setStoppableInterval(() => this.playAnimationEnboss(), 150);
     }
-
+  
     /**
-     * animate Endbos
+     * checking the status of Endboss and plays the animation
      */
-    endbossAnimate() {
-        if (this.isDead()) {
-            this.endbossIsDead(); 
-        } else if (this.isHurt()) {
-            this.endbossHurt();
-        } else if (this.energy < 60) {
-            this.endbossAttack();
-        } else {
-            this.playAnimation(this.ENDBOSS_ALERT);
-        }
-    }
-     
-    /**
-     * Endboss is attacking
-     */
-    endbossAttack() {
-        this.playAnimation(this.ENDBOSS_ATTACK);
-        this.move();
-        console.log('endboss moves');
-    }
-
-    /**
-     * Endboss is hurt
-     */
-    endbossHurt() {
-        this.playAnimation(this.ENDBOSS_HURT);
+    playAnimationEnboss() {
+      if (this.isDead() && this.y < 900) {
+        this.endbossDying();
+      } else if (this.y > 900) {
+        this.showEndscreen();
+        stopInterval();
+      } else if (this.isHurt()) {
+        this.playAnimation(this.endboss_hurt);
         this.bossHit_sound.play();
-        console.log('endboss hurt');
+      } else if (this.energy < 20) {
+        this.EndbossAnimate();
+      }
     }
-
+  
     /**
-     * Endboss is dead
+     * endboss move left 
      */
-    endbossIsDead() {
-        alive = false;
-        this.playAnimation(this.ENDBOSS_DEAD);
-        this.gameWon();
-        console.log('endboss dead');
+    EndbossAnimate() {
+      this.playAnimation(this.endboss_walks);
+      this.moveLeft();
     }
-
+  
     /**
-     * Endboss is moving
+     * endboss dying animation
      */
-    move() {
-        this.moveLeft();
+    endbossDying() {
+      this.playAnimation(this.endboss_dead);
+      this.endbossFalling();
     }
-
+  
+    /**
+     * show the endscreen if you won
+     */
+    showEndscreen() {
+      clearInterval(this.endbossFalling());
+      this.gameWon();
+    }
+  
+    /**
+     * Endboss falling down
+     */
+    endbossFalling() {
+      setInterval(() => {
+        this.y++;
+      }, 15);
+    }
+  
     /**
      * Endboss is dead, Pepe wins
      */
@@ -140,5 +122,5 @@ class Endboss extends MovableObject {
             this.win_sound.play();
         }, 3000)
     }
-
-}
+  }
+  

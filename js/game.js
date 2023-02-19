@@ -12,7 +12,7 @@ mute = false;
  */
 function startGame() {
     openGame();
-    initlevel();
+    initLevel();
     init();
     checkSmartphone();
     phoneButtons();
@@ -24,7 +24,6 @@ function startGame() {
 function checkSmartphone() {
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         // true for mobile device
-        //document.write("mobile device");
         document.getElementById('btnsPhone').classList.remove('d-none');
     }
 }
@@ -53,7 +52,7 @@ function openGame() {
  * open canvas, close menu for Smartphone
  */
 function openGamePhone() {
-    var phone = window.matchMedia("(max-width: 720px)")
+    var phone = window.matchMedia("(max-width: 721px)")
     if (phone.matches) {
         document.getElementById('logoJ').classList.add('d-none');
         document.getElementById('titleGame').classList.add('d-none');;

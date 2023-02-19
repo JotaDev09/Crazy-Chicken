@@ -352,7 +352,7 @@ canvas {
 
 /* smartphone */
 
-@media only screen and (max-width : 720px) {
+@media only screen and (max-width : 830px) {
     canvas {
         position: absolute;
         width: 100%;
@@ -456,18 +456,50 @@ canvas {
     }
 }
 
-@media only screen and (max-height : 480px) {
+@media only screen and (max-width:720px), (max-height : 480px) {
     canvas {
         height: 100vh;
+        width: 100%;
     }
 
     body {
         max-height: 480px;
-        background-size: auto;
+        overflow: hidden;
+    }
+
+    .control {
+        height: 300px;
+    }
+
+    .control_title  { 
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .control_title a { 
+        font-size: 24px;
+    }
+
+    .control_title p {
+        font-size: 19px;
+    }
+
+    .control_moves {
+        flex-direction: initial;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .thanks_to {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        font-size: 11px;
     }
 }
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 720px) {
     .turn_phone {
         display: block !important
     }

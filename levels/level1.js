@@ -1,40 +1,32 @@
 let level1;
-function initlevel() {
+function initLevel() {
 
-    level1 = new Level(
-        createEnemies(),
-        createEndboss(),
-        createClouds(),
-        createBackground(),
-        createBottle(),
-        createCoins(),
-    );
+level1 = new Level(
+    createEnemies(),
+    createClouds(),
+    createBackgroundObject(),
+    createCoins(),
+    createBottle(),
+);
+
 }
 
-
-/**
- * create the chickens and endboss
- */
 function createEnemies() {
     return [
-        new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
-        new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(),
-        new Piolin(), new Piolin(), new Piolin(), new Piolin(), new Piolin(),
-        new Piolin(), new Piolin(), new Piolin(), new Piolin(), new Piolin(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new SmallChicken(),
+        new Endboss()
     ]
 }
 
-function createEndboss() {
-    return [
-        new Endboss(),
-    ]
-}
-
-/**
- * create clouds
- */
 function createClouds() {
-    return [
+    return    [
         new Cloud('img/5_background/layers/4_clouds/1.png', 0),
         new Cloud('img/5_background/layers/4_clouds/2.png', 350),
 
@@ -59,13 +51,11 @@ function createClouds() {
         new Cloud('img/5_background/layers/4_clouds/2.png', 350 * 9),
 
         new Cloud('img/5_background/layers/4_clouds/1.png', 720 * 9),
+
     ]
 }
 
-/**
- * create the background
- */
-function createBackground() {
+function createBackgroundObject() {
     return [
         new BackgroundObject('img/5_background/layers/air.png', -719),
         new BackgroundObject('img/5_background/layers/3_third_layer/2.png', -719),
@@ -120,25 +110,42 @@ function createBackground() {
         new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 719 * 9),
         new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 719 * 9),
         new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 719 * 9),
+
     ]
 }
 
-/**
- * create the chile bottles
- */
-function createBottle() {
-    return [
-        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
-        new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),
-    ]
-}
-
-/**
- * create coins
- */
 function createCoins() {
-    return [
-        new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
-        new Coins(), new Coins(), new Coins(), new Coins(), new Coins(),
+    return    [
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins(),
+        new Coins()
+
+    ]
+}
+
+function createBottle(){
+    return[
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
+        new Bottle(),
     ]
 }

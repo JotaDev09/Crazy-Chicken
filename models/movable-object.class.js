@@ -5,106 +5,109 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-    groundPosition = 180;
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
-    };
-
-
+  
     /**
-     * apply gravity to the character and bottles
+     * add gravity to the game
      */
     applyGravity() {
-        setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            }
-        }, 1000 / 25);
-    };
-
+      setInterval(() => {
+        if (this.isAboveGround() || this.speedY > 0) {
+          this.y -= this.speedY;
+          this.speedY -= this.acceleration;
+        }
+      }, 1000 / 25);
+    }
+  
     /**
-     * if Pepe or bottles are on the air, they come back to ground
+     * check if obj is above the ground
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // Throwable object should always fall out of the canvas
-            return true;
-        } else {
-            return this.y < this.groundPosition;
-        }
+      if (this instanceof ThrowableObject) {
+        return this.y < 350;
+      } else {
+        return this.y < 150;
+      }
     }
-
+  
+    /* Character is colliding chicken
+      isColliding(mo) {
+          return this.x + this.width > mo.x &&
+              this.y + this.height > mo.y &&
+              this.x < mo.x && 
+              this.y < mo.y + mo.height;
+      }
+    */
+  
     /**
-     * Character or enemies are colliding
+     * checks if obj colliding
+     * @param {Object} mo
      */
     isColliding(mo) {
-        return (
-            this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
-            this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
-            this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
-            this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
-        );
+      return (
+        this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
+        this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
+        this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
+        this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom
+      );
     }
-
+  
     /**
-     * Character, enemies or bottles are hitting
+     * hit object and reduce energy
      */
     hit() {
-        this.energy -= 10;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
+      this.energy -= 5;
+      if (this.energy < 0) {
+        this.energy = 0;
+      } else {
+        this.lastHit = new Date().getTime(); // so speichert man zeit in einem Zahlenwert
+      }
     }
-
+  
     /**
-     * Character or enemies are hurting
+     * time between between last hit
      */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
-        timepassed = timepassed / 1000; //Difference in sec
-        return timepassed < 1;
+      let timepassed = new Date().getTime() - this.lastHit; // Differenz in ms
+      timepassed = timepassed / 1000; // Difference in s
+      return timepassed < 1;
     }
-
+  
     /**
-     * Character or enemies are dead
+     * checking if obj is dead
      */
     isDead() {
-        return this.energy == 0;
+      return this.energy == 0;
     }
-
+  
     /**
-     * animation of character and enemies when walking, jumping or hurting
+     * paste images fromd array to cache
+     * @param {Array} images
      */
     playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 0 % 6; 0, Rest 0 // let i = 1 % 6; 0, Rest 1 ...
-        let path = images[i];
-        this.img = this.ImageCache[path];
-        this.currentImage++;
+      let i = this.currentImage % images.length;
+      let path = images[i];
+      this.img = this.ImageCache[path];
+      this.currentImage++;
     }
-
+  
     /**
-     * Character moves to right
+     * move obj right
      */
     moveRight() {
-        this.x += this.speed;
+      this.x += this.speed;
     }
-
+  
     /**
-     * Character or enemies move to left
+     * move obj left
      */
     moveLeft() {
-        this.x -= this.speed;
+      this.x -= this.speed;
     }
-
+  
     /**
-     * Character jumps
+     * obj jump
      */
     jump() {
-        this.speedY = 30
+      this.speedY = 30;
     }
-}
+  }

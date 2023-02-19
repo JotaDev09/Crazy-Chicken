@@ -1,301 +1,336 @@
 class World {
-
+    // in einer Klasse braucht man kein let, var oder const um eine Variable zu deklarieren
     character = new Character();
-    endboss = new Endboss();
-    chicken = new Chicken();
-
-    level = level1;
+    level = level1; // damit kann auf alle Variablen aus dem level zugreifen
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
-
-    statusBar = new StatusBar();
-    statusBarCoins = new statusBarCoins();
-    statusBarBottle = new statusBarBottle();
-    statusBarBoss = new statusBarBoss();
-    bottles = new Bottle();
-    coins = new Coins()
-
+  
     ThrowableObjects = [];
     bottleAmount = 0;
     coinsAmount = 0;
-
+  
+    smallChicken = new SmallChicken();
+    endBoss = level1.enemies[8];
+    statusBarBoss = new statusBarBoss();
+    chicken = new Chicken();
+    statusBar = new StatusBar();
+    coinBar = new CoinBar();
+    bottleBar = new BottleBar();
+    coin = new Coins();
+    bottle = new Bottle();
+  
+    dead_chicken = new Audio('audio/chicken_hit.mp3');
+    collect_coin = new Audio("audio/coin.mp3");
+    collect_bottle = new Audio("audio/bottle.mp3");
+  
+    paused = false;
     throwAble = true;
-
-    chickenHit_sound = new Audio('audio/chicken_hit.mp3');
-    coin_sound = new Audio('audio/coin.mp3');
-    bottle_sound = new Audio('audio/bottle.mp3');
-
-
-    constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.draw();
-        this.setWorld();
-        this.run();
+  
+    constructor(canvas) {
+      this.ctx = canvas.getContext("2d");
+      this.canvas = canvas;
+      this.keyboard = keyboard;
+      this.draw();
+      this.setWorld();
+      this.run();
     }
-
+  
     /**
-     * to fit models with world
+     * allow to use var's from world everywhere
      */
     setWorld() {
-        this.character.world = this;
-        this.chicken.world = this;
+      this.character.world = this;
+      this.chicken.world = this;
     }
-
+  
     /**
-     * the game is running with stoppable intervals
+     * checking all Collisions in a intervall
      */
     run() {
-        setStoppableInterval(() => {
-            this.catchBottle();
-            this.catchCoin();
-            this.checkThrowObjects();
-            this.bottleCollidingChickenBoss();
-            this.pepeCollidingEnemy();
-            this.pepeCollidingEndboss()
-        }, 200)
-
-        setStoppableInterval(() => {
-            this.pepeCollidingEnemyFromAbove();
-        }, 1000 / 60)
+      setStoppableInterval(() => {
+        this.checkCollisionsChicken();
+        this.checkCollisionsBottle();
+        this.checkCollisionsCoins();
+        this.checkCollisionsBottleWithEndboss();
+        this.checkThrowObjects();
+      }, 200);
+  
+      setInterval(() => {
+        this.checkCollisionsChickenFromTopChicken();
+        this.checkCollisionsChickenFromTopSmallChicken();
+      }, 1000 / 60);
     }
-
+  
+  
     /**
-     * Character catch throwable objects
+     * checks if can throw bottles
      */
     checkThrowObjects() {
-        if (this.keyboard.D && this.bottleAmount > 0 && this.throwAble) {
-            setTimeout(() => this.throwAble = true, 2000);
-            this.throwBottle();
+      if (this.keyboard.D && this.bottleAmount > 0 && this.throwAble) {
+        setTimeout(() => {
+          this.throwAble = true;
+        }, 2000);
+        this.addBottle();
+      }
+    }
+  
+    /**
+     * check collision between character and normal chicken
+     */
+    checkCollisionsChicken() {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy) && !enemy.dead) {
+          this.character.hit();
+          this.statusBar.setPercentage(this.character.energy);
         }
+      });
     }
-
+  
     /**
-     * Character throws bottle
+     * check collision from top on a normal chicken
+     * instance is for counting which chicken is killed
      */
-    throwBottle() {
-        if (this.throwAble) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100, this.character.otherDirection);
-            this.bottleAmount -= 1;
-            this.statusBarBottle.setPercentage(this.bottleAmount * 20);
-            this.ThrowableObjects.push(bottle);
-            this.throwAble = false
+    checkCollisionsChickenFromTopChicken() {
+      this.level.enemies.forEach((enemy) => {
+        if (this.isCollidingFromAbove(enemy) && enemy instanceof Chicken) {
+          enemy.hit();
+          enemy.dead = true;    
+          this.dead_chicken.play();
+          setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
         }
+      });
     }
-
+  
     /**
-     * character is colliding enemies
+     * if an obj colliding from top
+     * @param {string} mo 
+     * @returns  if
      */
-    pepeCollidingEnemy() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) &&
-                enemy.alive == true) {
-                this.character.hit(5);
-                this.statusBar.setPercentage(this.character.energy)
-            }
-        });
+    isCollidingFromAbove(mo){
+      return this.character.isColliding(mo) &&
+      this.character.isAboveGround() &&
+      !mo.dead &&
+  
+      !this.character.isHurt()
     }
-    pepeCollidingEndboss() {
-        this.level.endboss.forEach((endboss) => {
-            if (this.character.isColliding(endboss) &&
-                endboss.alive == true) {
-                this.character.hit(5);
-                this.statusBar.setPercentage(this.character.energy)
-            }
-        });
-    }
-
+  
     /**
-     * Character is jumping and colliding enemies from above
+     * check collision from top on a small chicken
+     * instance is for counting which chicken is killed
      */
-    pepeCollidingEnemyFromAbove() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) &&
-                this.character.isAboveGround()) {
-                enemy.alive = false;
-                this.chickenHit_sound.play()
-                setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
-            };
-        });
+    checkCollisionsChickenFromTopSmallChicken() {
+      this.level.enemies.forEach((enemy) => {
+        if (this.isCollidingFromAbove(enemy) &&  enemy instanceof SmallChicken) { 
+          enemy.hit();
+          enemy.dead = true;
+          this.dead_chicken.play();
+          setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
+        }
+      });
     }
 
     /**
      * when enemie is dead, remove it from canvas
      */
     removeEnemyFromArray(enemy) {
-        let index = this.level.enemies.indexOf(enemy);
-        this.level.enemies.splice(index, 1);
-    }
-
+      let index = this.level.enemies.indexOf(enemy);
+      this.level.enemies.splice(index, 1);
+  }
+  
     /**
-     * bottle is colliding Endboss
+     * check collision between character and bottle
      */
-    bottleCollidingChickenBoss() {
-        this.ThrowableObjects.forEach((ThrowableObjects) => {
-            if (this.isCollidingEndboss(ThrowableObjects)) {
-                this.endboss.hit(10);
-                ThrowableObjects.hitEndboss = true;
-                this.statusBarBoss.setPercentage(this.endboss.energy)
-            }
-        });
+    checkCollisionsBottle() {
+      this.level.bottle.forEach((bottle) => {
+        if (this.isCollidingObj(bottle)) {
+          this.bottleAmount += 1;
+          this.hideBottle(bottle);
+          this.collect_bottle.play();
+          this.bottleBar.setPercentage(this.bottleAmount * 20);
+        }
+      });
     }
-
-    isCollidingEndboss(ThrowableObjects) {
-        return this.endboss.isColliding(ThrowableObjects) &&
-            ThrowableObjects.heigth != 0 &&
-            ThrowableObjects.width != 0
-    }
-
+  
     /**
-     * Character catchs bottle
-     */
-    catchBottle() {
-        this.level.bottles.forEach((bottles) => {
-            if (this.isCollidingObj(bottles)) this.statusBottle(bottles)
-        });
-    }
-
-    /**
-     * status bar changes when charachter catchs bottle
-     */
-    statusBottle(bottles) {
-        this.bottleAmount += 1;
-        this.hideBottle(bottles);
-        this.bottle_sound.volume = 1
-        this.bottle_sound.play();
-        this.statusBarBottle.setPercentage(this.bottleAmount * 10);
-    }
-
-    /**
-     * Character catchs coins
-     */
-    catchCoin() {
-        this.level.coins.forEach((coins) => {
-            if (this.isCollidingObj(coins)) this.statusCoins(coins)
-        });
-    }
-
-    /**
-     * status bar changes when charachter catchs coins
-     */
-    statusCoins(coins) {
-        this.coinsAmount += 1;
-        this.hideCoins(coins);
-        this.coin_sound.volume = 0.4
-        this.coin_sound.play();
-        this.statusBarCoins.setPercentage(this.coinsAmount * 10);
-    }
-
-    /**
-     * character is colliding with objects
+     * 
+     * @param {string} obj 
+     * @returns check if obj is collectable
      */
     isCollidingObj(obj) {
-        return this.character.isColliding(obj) &&
-            obj.height != 0 &&
-            obj.width != 0
+      return this.character.isColliding(obj) &&
+      obj.height != 0 &&
+      obj.width != 0
     }
-
+  
     /**
-     * Bottle hides when is catching
+     * check collision between character and coin
      */
-    hideBottle(bottles) {
-        bottles.height = 0;
-        bottles.width = 0;
+    checkCollisionsCoins() {
+      this.level.coin.forEach((coin) => {
+        if (this.isCollidingObj(coin)) {
+          this.coinsAmount += 1;
+          this.hideCoin(coin);
+          this.collect_coin.play();
+          this.coinBar.setPercentage(this.coinsAmount * 20);
+        }
+      });
     }
-
+  
     /**
-     * Coin hides when is catching
+     * check collision between bottle and normal endboss
      */
-    hideCoins(coins) {
-        coins.height = 0;
-        coins.width = 0;
+    checkCollisionsBottleWithEndboss() {
+      this.ThrowableObjects.forEach((ThrowableObjects) => {
+        if (this.isCollidingEndboss(ThrowableObjects)) {
+          this.endBoss.hit(10);
+          ThrowableObjects.hitEndboss = true;
+          this.statusBarBoss.setPercentage(this.endBoss.energy)
+        }
+      });
     }
-
+  
     /**
-     * draw all the objects, character, enemies, background etc. in the world
+     * 
+     * @param {string} ThrowableObjects 
+     * @returns check if bottle colliding with endboss
+     */
+    isCollidingEndboss(ThrowableObjects) {
+      return this.endBoss.isColliding(ThrowableObjects) &&
+      ThrowableObjects.heigth != 0 &&
+      ThrowableObjects.width != 0
+    }
+    
+  
+    /**
+     * add bottle to array
+     */
+    addBottle() {
+      if (this.throwAble) {
+        let bottle = new ThrowableObject(
+          this.character.x + 100,
+          this.character.y + 100
+        );
+        this.checkBottleDirection(bottle);
+        this.bottleAmount -= 1;
+        this.bottleBar.setPercentage(this.bottleAmount * 20);
+        this.ThrowableObjects.push(bottle);
+        this.throwAble = false;
+      }
+    }
+  
+    /**
+     * check collision between character and normal chicken
+     * @Param {Object} bottle
+     */
+    checkBottleDirection(bottle) {
+      if (this.character.otherDirection) {
+        bottle.speedX *= -1;
+        bottle.x = this.character.x;
+      }
+    }
+  
+    /**
+     * remove bottle
+     */
+    hideBottle(bottle) {
+      bottle.height = 0;
+      bottle.width = 0;
+    }
+  
+    /**
+     * remove coin
+     */
+    hideCoin(coin) {
+      coin.height = 0;
+      coin.width = 0;
+    }
+  
+    /**
+     * draw obj to canvas
      */
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-        this.ctx.translate(this.camera_x, 0);
-        this.addScene();
-        this.addMoveableObjects();
-        this.ctx.translate(-this.camera_x, 0);
-        this.addStatusBar();
-
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw()
-        });
-
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // löscht das canvas
+      this.ctx.translate(this.camera_x, 0); // zum verschieben der Kamera, damit man nicht aus dem Bild laufen kann // man muss immer x und y achse angeben
+      this.addObjectsToMap(this.level.backgroundObjects);
+      this.addBarsToMap();
+      this.addCollectableObjToMap();
+      this.addToMap(this.character);
+      this.addObjectsToMap(this.level.clouds);
+      this.addObjectsToMap(this.ThrowableObjects);
+      this.ctx.translate(-this.camera_x, 0);
+      let self = this;
+      requestAnimationFrame(function () {
+        self.draw();
+      });
     }
-
+  
     /**
-     * draw all the moveable objects
+     * add bars
      */
-    addMoveableObjects() {
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.endboss);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.ThrowableObjects);
+    addBarsToMap() {
+      this.ctx.translate(-this.camera_x, 0); // back
+      this.addToMap(this.statusBar);
+      this.addToMap(this.coinBar);
+      this.addToMap(this.bottleBar);
+      this.addToMap(this.statusBarBoss);
+      this.ctx.translate(this.camera_x, 0); // forwards
     }
-
+  
     /**
-     * draw all the status bar
+     * add collectable objects
      */
-    addStatusBar() {
-        this.addToMap(this.statusBar);
-        this.addToMap(this.statusBarCoins);
-        this.addToMap(this.statusBarBottle);
-        this.addToMap(this.statusBarBoss);
+    addCollectableObjToMap() {
+      this.addObjectsToMap(this.level.coin);
+      this.addObjectsToMap(this.level.bottle);
+      this.addObjectsToMap(this.level.enemies);
     }
-
+  
     /**
-     * draw all the background and clouds
-     */
-    addScene() {
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.backgroundObjects);
-    }
-
-    /**
-     * add all the objects to the map
+     * add images from array to canvas
+     * @param {array} objects
      */
     addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o)
-        });
-    };
-
+      objects.forEach((o) => {
+        this.addToMap(o);
+      });
+    }
+  
     /**
-     * depends the directions, draw the image
+     * add image of movable obj to canvas
+     * @param {Movable Object} mo
      */
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
-        }
-        mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx)
-
-        if (mo.otherDirection) {
-            this.flipImageBack(mo)
-        }
+      if (mo.otherDirection) {
+        this.flipImage(mo);
+      }
+  
+      mo.draw(this.ctx);
+      //mo.drawFrame(this.ctx) // add a Frame to adjust collisions
+  
+      if (mo.otherDirection) {
+        this.flipImageBack(mo);
+      }
     }
-
+  
+    /**
+     * mirrors movable obj
+     * @param {Movable Object} mo
+     */
     flipImage(mo) {
-        this.ctx.save();
-        this.ctx.translate(mo.width, 0);
-        this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
+      this.ctx.save();
+      this.ctx.translate(mo.width, 0);
+      this.ctx.scale(-1, 1);
+      mo.x = mo.x * -1;
     }
-
+  
+    /**
+     * mirrors images
+     * @param {Movable Object} mo
+     */
     flipImageBack(mo) {
-        mo.x = mo.x * -1;
-        this.ctx.restore();
+      mo.x = mo.x * -1;
+      this.ctx.restore();
     }
-}
+  }
