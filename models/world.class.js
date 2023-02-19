@@ -210,7 +210,7 @@ class World {
         );
         this.checkBottleDirection(bottle);
         this.bottleAmount -= 1;
-        this.bottleBar.setPercentage(this.bottleAmount * 20);
+        this.bottleBar.setPercentage(this.bottleAmount * 10);
         this.ThrowableObjects.push(bottle);
         this.throwAble = false;
       }
