@@ -3,12 +3,13 @@ class World {
     character = new Character();
     endboss = new Endboss();
     chicken = new Chicken();
-    Endboss = level1.enemies[20];
+
     level = level1;
     canvas;
     ctx;
     keyboard;
     camera_x = 0;
+
     statusBar = new StatusBar();
     statusBarCoins = new statusBarCoins();
     statusBarBottle = new statusBarBottle();
@@ -42,7 +43,6 @@ class World {
     setWorld() {
         this.character.world = this;
         this.chicken.world = this;
-        this.endboss.world = this;
     }
 
     /**
@@ -55,6 +55,7 @@ class World {
             this.checkThrowObjects();
             this.bottleCollidingChickenBoss();
             this.pepeCollidingEnemy();
+            this.pepeCollidingEndboss()
         }, 200)
 
         setStoppableInterval(() => {
@@ -97,6 +98,15 @@ class World {
             }
         });
     }
+    pepeCollidingEndboss() {
+        this.level.endboss.forEach((endboss) => {
+            if (this.character.isColliding(endboss) &&
+                endboss.alive == true) {
+                this.character.hit(5);
+                this.statusBar.setPercentage(this.character.energy)
+            }
+        });
+    }
 
     /**
      * Character is jumping and colliding enemies from above
@@ -124,13 +134,19 @@ class World {
      * bottle is colliding Endboss
      */
     bottleCollidingChickenBoss() {
-        this.ThrowableObjects.forEach((bottle) => {
-            if (this.endboss.isColliding(bottle)) {
+        this.ThrowableObjects.forEach((ThrowableObjects) => {
+            if (this.isCollidingEndboss(ThrowableObjects)) {
                 this.endboss.hit(10);
-                this.ThrowableObjects.hitEndboss = true;
+                ThrowableObjects.hitEndboss = true;
                 this.statusBarBoss.setPercentage(this.endboss.energy)
             }
         });
+    }
+
+    isCollidingEndboss(ThrowableObjects) {
+        return this.endboss.isColliding(ThrowableObjects) &&
+            ThrowableObjects.heigth != 0 &&
+            ThrowableObjects.width != 0
     }
 
     /**
@@ -146,7 +162,6 @@ class World {
      * status bar changes when charachter catchs bottle
      */
     statusBottle(bottles) {
-        console.log('bottle')
         this.bottleAmount += 1;
         this.hideBottle(bottles);
         this.bottle_sound.volume = 1
@@ -167,7 +182,6 @@ class World {
      * status bar changes when charachter catchs coins
      */
     statusCoins(coins) {
-        console.log('coins')
         this.coinsAmount += 1;
         this.hideCoins(coins);
         this.coin_sound.volume = 0.4

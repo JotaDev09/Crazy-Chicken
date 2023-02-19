@@ -169,22 +169,22 @@ class Character extends MovableObject {
      */
     characterAnimation() {
         if (this.isDead())
-            this.charachterIsDead()
+            this.characterIsDead();
         else if (this.isHurt())
-            this.charachterIsHurt()
+            this.characterIsHurt();
         else if (this.isAboveGround())
-            this.charachterIsJumping()
+            this.characterIsJumping();
         else if (this.characterMoves())
-            this.characterToSides()
-        else if (this.characterNotMove() > 3) {
+            this.characterToSides();
+        else if (this.characterNotMove() > 3) 
             this.playAnimation(this.IMAGES_IDLE_LONG);
-        } else {
-            this.playAnimation(this.IMAGES_IDLE)
-        }
+        else 
+            this.playAnimation(this.IMAGES_IDLE);
+        
     }
 
 
-    charachterIsDead() {
+    characterIsDead() {
         super.playAnimation(this.IMAGES_DEAD);
         this.dead_sound.volume = 0.8
         this.dead_sound.play();
@@ -192,14 +192,14 @@ class Character extends MovableObject {
     }
 
 
-    charachterIsHurt() {
+    characterIsHurt() {
         super.playAnimation(this.IMAGES_HURT)
         this.hurt_sound.volume = 0.4
         this.hurt_sound.play();
     }
 
 
-    charachterIsJumping() {
+    characterIsJumping() {
         super.playAnimation(this.IMAGES_JUMPING);
         this.setTimeStamp();
     }

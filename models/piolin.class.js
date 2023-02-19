@@ -20,7 +20,7 @@ class Piolin extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
 
-        this.x = 500 + Math.random() * 7000; // entre 200 y 700
+        this.x = 500 + Math.random() * 5500; // entre 200 y 700
         this.speed = 0.30 + Math.random() * 0.7;
         this.animate();
     }

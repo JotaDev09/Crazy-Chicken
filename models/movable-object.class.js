@@ -78,12 +78,12 @@ class MovableObject extends DrawableObject {
     }
 
     /**
-     * animation of charachter and enemies when walking, jumping or hurting
+     * animation of character and enemies when walking, jumping or hurting
      */
     playAnimation(images) {
         let i = this.currentImage % images.length; // let i = 0 % 6; 0, Rest 0 // let i = 1 % 6; 0, Rest 1 ...
         let path = images[i];
-        this.img = this.imageCache[path];
+        this.img = this.ImageCache[path];
         this.currentImage++;
     }
 

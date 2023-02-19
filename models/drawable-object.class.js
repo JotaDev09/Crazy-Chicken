@@ -1,6 +1,6 @@
 class DrawableObject {
     img;
-    imageCache = {};
+    ImageCache = {};
     currentImage = 0;
     x = 120;
     y = 250;
@@ -51,7 +51,7 @@ class DrawableObject {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
-            this.imageCache[path] = img;
+            this.ImageCache[path] = img;
         });
     }
 
@@ -62,7 +62,7 @@ class DrawableObject {
     setPercentage(percentage) {
         this.percentage = percentage; // -> 0 ... 5
         let path = this.IMAGES[this.resolveImageIndex()];
-        this.img = this.imageCache[path]
+        this.img = this.ImageCache[path]
     }
 
     /**

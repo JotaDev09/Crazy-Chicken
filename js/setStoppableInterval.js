@@ -1,16 +1,16 @@
-let IntervalIDS = [];
+let intervalIDS = [];
 
 /**
  * create intervals in array
  */
 function setStoppableInterval(fn, time) {
     let id = setInterval(fn, time);
-    IntervalIDS.push(id);
+    intervalIDS.push(id);
 }
 
 /**
  * stop all stoppable Intervals
  */
 function stopInterval() {
-    IntervalIDS.forEach(clearInterval);
+    intervalIDS.forEach(clearInterval);
 }
