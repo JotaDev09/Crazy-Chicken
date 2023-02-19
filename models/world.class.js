@@ -21,10 +21,6 @@ class World {
     coin = new Coins();
     bottle = new Bottle();
   
-    dead_chicken = new Audio('audio/chicken_hit.mp3');
-    collect_coin = new Audio("audio/coin.mp3");
-    collect_bottle = new Audio("audio/bottle.mp3");
-  
     paused = false;
     throwAble = true;
   
@@ -97,7 +93,7 @@ class World {
         if (this.isCollidingFromAbove(enemy) && enemy instanceof Chicken) {
           enemy.hit();
           enemy.dead = true;    
-          this.dead_chicken.play();
+          dead_chicken.play();
           setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
         }
       });
@@ -125,7 +121,7 @@ class World {
         if (this.isCollidingFromAbove(enemy) &&  enemy instanceof SmallChicken) { 
           enemy.hit();
           enemy.dead = true;
-          this.dead_chicken.play();
+          dead_chicken.play();
           setTimeout(() => this.removeEnemyFromArray(enemy), 1000);
         }
       });
@@ -147,8 +143,8 @@ class World {
         if (this.isCollidingObj(bottle)) {
           this.bottleAmount += 1;
           this.hideBottle(bottle);
-          this.collect_bottle.play();
-          this.bottleBar.setPercentage(this.bottleAmount * 20);
+          collect_bottle.play();
+          this.bottleBar.setPercentage(this.bottleAmount * 10);
         }
       });
     }
@@ -172,8 +168,8 @@ class World {
         if (this.isCollidingObj(coin)) {
           this.coinsAmount += 1;
           this.hideCoin(coin);
-          this.collect_coin.play();
-          this.coinBar.setPercentage(this.coinsAmount * 20);
+          collect_coin.play();
+          this.coinBar.setPercentage(this.coinsAmount * 10);
         }
       });
     }

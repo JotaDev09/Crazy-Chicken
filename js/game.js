@@ -3,7 +3,17 @@ let ctx;
 let world;
 let keyboard = new Keyboard()
 
-mariachi_sound = new Audio('audio/mariachi.mp3');
+let mariachi_sound = new Audio('audio/mariachi.mp3');
+let walking_sound = new Audio('audio/walking.mp3');
+let hurt_sound = new Audio('audio/pepe_hit.mp3');
+let dead_sound = new Audio('audio/dead.mp3');
+let jump_sound = new Audio('audio/jump.mp3');
+let lost_sound = new Audio('audio/game_over.mp3');
+let bossHit_sound = new Audio('audio/endboss_hit.mp3');
+let win_sound = new Audio("audio/win.mp3");
+let dead_chicken = new Audio('audio/chicken_hit.mp3');
+let collect_coin = new Audio("audio/coin.mp3");
+let collect_bottle = new Audio("audio/bottle.mp3");
 mute = false;
 
 
@@ -44,7 +54,7 @@ function openGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('iconSet').classList.remove('d-none')
     mariachi_sound.volume = 0.1;
-    this.mariachi_sound.play();
+    mariachi_sound.play();
     openGamePhone();
 }
 
@@ -52,14 +62,14 @@ function openGame() {
  * open canvas, close menu for Smartphone
  */
 function openGamePhone() {
-    var phone = window.matchMedia("(max-width: 721px)")
+    var phone = window.matchMedia("(max-width: 900px)")
     if (phone.matches) {
         document.getElementById('logoJ').classList.add('d-none');
         document.getElementById('titleGame').classList.add('d-none');;
         document.getElementById('fullScreenLog').classList.add('d-none');
         document.getElementById('btnsPhone').classList.remove('d-none');
     };
-    
+
 }
 
 /**
@@ -103,7 +113,7 @@ function winScreen() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('iconSet').classList.add('d-none');
     document.getElementById('btnsPhone').classList.add('d-none');
-    this.mariachi_sound.pause()
+    mariachi_sound.pause()
 }
 
 /**
@@ -115,7 +125,8 @@ function lostScreen() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('iconSet').classList.add('d-none');
     document.getElementById('btnsPhone').classList.add('d-none');
-    this.mariachi_sound.pause()
+    mariachi_sound.pause()
+    dead_sound.pause()
 }
 
 /**
@@ -165,6 +176,16 @@ function closeFullscreen() {
  */
 function muteSound() {
     mariachi_sound.pause();
+    walking_sound.volume = 0
+    hurt_sound.volume = 0
+    dead_sound.volume = 0
+    jump_sound.volume = 0
+    lost_sound.volume = 0
+    bossHit_sound.volume = 0
+    win_sound.volume = 0
+    dead_chicken.volume = 0
+    collect_coin.volume = 0
+    collect_bottle.volume = 0
     mute = true;
     document.getElementById('mute').classList.add('d-none')
     document.getElementById('sound').classList.remove('d-none')
@@ -175,6 +196,15 @@ function muteSound() {
    */
 function sound() {
     mariachi_sound.play();
+    hurt_sound.volume = 0.4
+    dead_sound.volume = 1.2
+    jump_sound.volume = 0.2
+    lost_sound.volume = 0.4
+    bossHit_sound.volume = 0.4
+    win_sound.volume = 0.4
+    dead_chicken = 0.4
+    collect_coin.volume = 0.4
+    collect_bottle.volume = 0.4
     mute = false;
     document.getElementById('mute').classList.remove('d-none')
     document.getElementById('sound').classList.add('d-none')

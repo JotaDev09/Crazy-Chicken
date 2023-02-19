@@ -77,11 +77,7 @@ class Character extends MovableObject {
     ]
 
     world;
-    walking_sound = new Audio('audio/walking.mp3');
-    hurt_sound = new Audio('audio/pepe_hit.mp3');
-    dead_sound = new Audio('audio/dead.mp3');
-    jump_sound = new Audio('audio/jump.mp3');
-    lost_sound = new Audio('audio/game_over.mp3');
+    
 
     constructor() {
         super().loadImage("img/2_character_pepe/2_walk/W-21.png");
@@ -94,7 +90,7 @@ class Character extends MovableObject {
         this.applyGravity();
         this.animate();
     }
-
+    
     /**
      * animates Character
      */
@@ -107,7 +103,7 @@ class Character extends MovableObject {
      * move character (left , right or jump)
      */
     moveCharacter() {
-        this.walking_sound.pause();
+        walking_sound.pause();
         if (this.canMoveRight()) this.moveRight();
         if (this.canMoveLeft()) this.moveLeft();
         if (this.canJump()) this.jump();
@@ -120,7 +116,7 @@ class Character extends MovableObject {
     moveRight() {
         super.moveRight();
         this.otherDirection = false;
-        this.walking_sound.play();
+        walking_sound.play();
     }
 
     /**
@@ -129,7 +125,7 @@ class Character extends MovableObject {
     moveLeft() {
         super.moveLeft();
         this.otherDirection = true;
-        this.walking_sound.play();
+        walking_sound.play();
     }
 
     canJump() {
@@ -168,8 +164,7 @@ class Character extends MovableObject {
      */
     characterIsDead() {
         super.playAnimation(this.pepe_dead);
-        this.dead_sound.volume = 0.8
-        this.dead_sound.play();
+        dead_sound.play();
         this.gameLost();
         this.stopSleep();
     }
@@ -180,8 +175,7 @@ class Character extends MovableObject {
     characterIsHurt() {
         super.playAnimation(this.pepe_hurt);
         this.stopSleep();
-        this.hurt_sound.volume = 0.4
-        this.hurt_sound.play();
+        hurt_sound.play();
     }
 
     /**
@@ -229,19 +223,17 @@ class Character extends MovableObject {
      */
     jump() {
         this.speedY = 30;
-        this.jump_sound.volume = 0.2
-        this.jump_sound.play();
+        jump_sound.play();
     }
 
     /**
      * shows the lose screen
      */
     gameLost() {
-        this.dead_sound.pause()
+        
         setTimeout(() => {
             lostScreen();
-            this.lost_sound.volume = 0.4
-            this.lost_sound.play();
+            lost_sound.play();
         }, 3000)
     }
 }

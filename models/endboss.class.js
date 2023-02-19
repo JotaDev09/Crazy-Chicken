@@ -3,9 +3,8 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 50;
-    energy = 30;
-    bossHit_sound = new Audio('audio/endboss_hit.mp3');
-    win_sound = new Audio("audio/win.mp3");
+    energy = 25;
+    
   
     offset = {
       top: 60,
@@ -73,8 +72,8 @@ class Endboss extends MovableObject {
         stopInterval();
       } else if (this.isHurt()) {
         this.playAnimation(this.endboss_hurt);
-        this.bossHit_sound.play();
-      } else if (this.energy < 20) {
+        bossHit_sound.play();
+      } else if (this.energy <= 20) {
         this.EndbossAnimate();
       }
     }
@@ -118,9 +117,8 @@ class Endboss extends MovableObject {
     gameWon() {
         setTimeout(() => {
             winScreen();
-            this.win_sound.volume = 0.4;
-            this.win_sound.play();
-        }, 3000)
+            win_sound.play();
+        }, 1000)
     }
   }
   

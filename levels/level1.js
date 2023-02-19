@@ -127,16 +127,13 @@ function createCoins() {
         new Coins(),
         new Coins(),
         new Coins(),
-        new Coins(),
-        new Coins(),
-        new Coins(),
-        new Coins()
 
     ]
 }
 
 function createBottle(){
     return[
+        new Bottle(),
         new Bottle(),
         new Bottle(),
         new Bottle(),

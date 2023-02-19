@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     margin: 0;
     font-family: 'zabars', Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 @font-face {
@@ -98,6 +99,7 @@ canvas {
     align-items: flex-end;
     justify-content: center;
     flex-direction: row;
+    cursor: pointer;
     z-index: 1;
     top: 0;
     gap: 10px;
@@ -148,12 +150,13 @@ canvas {
     align-items: center;
     justify-content: center;
     width: 700px;
-    height: 500px;
+    height: 400px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 5px 5px 15px 5px #000000;
     padding-left: 20px;
     padding-right: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .exit {
@@ -173,14 +176,17 @@ canvas {
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    font-size: 45px;
     letter-spacing: 4px;
-    margin-top: 10px;
-    margin-bottom: 30px;
+}
+
+.control_title a {
+    font-size: 40px;
 }
 
 .control_title p {
-    font-size: 35px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 30px;
 }
 
 .control_moves {
@@ -234,7 +240,7 @@ canvas {
     align-items: center;
     justify-content: center;
     width: 700px;
-    height: 500px;
+    height: 400px;
     box-sizing: border-box;
     border-radius: 15px;
     box-shadow: 5px 5px 15px 5px #000000;
@@ -244,6 +250,7 @@ canvas {
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .help a {
@@ -254,6 +261,13 @@ canvas {
 .info {
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.thanks_to {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    font-size: 18px;
 }
 
 /* win screen */
@@ -287,6 +301,7 @@ canvas {
 .buttons_end {
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .button_end {
@@ -352,12 +367,27 @@ canvas {
 
 /* smartphone */
 
-@media only screen and (max-width : 830px) {
+@media only screen and (max-width : 900px) {
     canvas {
-        position: absolute;
         width: 100%;
     }
+}
 
+@media only screen and (max-height : 415px) {
+    canvas {
+        height: 100vh;
+    }
+}
+
+@media (max-width : 900px) {
+    .game {
+        max-width: 100%;
+        max-height: 100vh;
+    }
+    
+    .logo_j {
+        width: 880px;
+    }
     .logo_j img {
         width: 50px;
         height: 50px;
@@ -365,7 +395,7 @@ canvas {
 
     .title_game {
         font-size: 50px;
-        
+
         margin: 10px;
     }
 
@@ -379,7 +409,7 @@ canvas {
     }
 
     .menu_opt {
-        max-width: 140px;
+        max-width: 213px;
     }
 
     .menu_opt img {
@@ -390,6 +420,14 @@ canvas {
     .control {
         width: 80%;
         margin-bottom: 15px;
+        height: 270px;
+    }
+
+    .control_moves {
+        flex-direction: initial;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
     }
 
     .exit {
@@ -411,11 +449,11 @@ canvas {
     .help {
         width: 90%;
         margin-bottom: 30px;
+        height: 270px;
     }
 
-
     .info {
-        font-size: 25px;
+        font-size: 23px;
         padding-top: 5px;
         padding-bottom: 15px;
     }
@@ -456,11 +494,8 @@ canvas {
     }
 }
 
-@media only screen and (width:720px), (height : 480px) {
-    canvas {
-        height: 100vh;
-        width: 100%;
-    }
+@media (width:720px) {
+
 
     body {
         max-height: 480px;
@@ -471,12 +506,12 @@ canvas {
         height: 300px;
     }
 
-    .control_title  { 
+    .control_title {
         margin-top: 5px;
         margin-bottom: 5px;
     }
 
-    .control_title a { 
+    .control_title a {
         font-size: 24px;
     }
 
@@ -498,9 +533,88 @@ canvas {
         font-size: 11px;
     }
 }
+@media only screen and (max-width: 670px) {
+    canvas {
+        width: 100%;
+    }
+}
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-height: 380px) {
+    canvas {
+        height: 100vh;
+    }
+}
+@media (max-width: 670px) {
+    
+    .logo_j {
+        width: 600px;
+    }
+    
+    .title_game {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 42px;
+    }
+
+    .menu_cont {
+        width: 650px
+    }
+
+    .menu_opt a { 
+        font-size: 35px; }
+
+    .menu_opt img {
+        width: 190px;
+        height: 180px;
+    }
+
+    .control {
+        margin-top: 5px;
+        height: 250px;
+    }
+
+    .control_title {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .control_moves {
+        flex-direction: initial;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .moves a {
+        font-size: 25px;
+    }
+
+    .moves img {
+        width: 33px;
+        height: 33px;
+    }
+
+    .help {
+        margin-top: 5px;
+        height: 250px;
+        justify-content: initial;
+    }
+
+    .info {
+        font-size: 20px;
+        padding-top: 0;
+    }
+
+    .thanks_to {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 300px) {
     .turn_phone {
-        display: block !important
+        display: flex !important;
     }
 }

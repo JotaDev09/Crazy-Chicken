@@ -16,7 +16,7 @@ class statusBarBoss extends DrawableObject {
         this.y = -12;
         this.width = 200;
         this.height = 60;
-        this.setPercentage(30);
+        this.setPercentage(25);
     }
 
 
@@ -33,11 +33,11 @@ class statusBarBoss extends DrawableObject {
      * percentage of status-bars and this animation
      */
     resolveImageIndex() {
-        if (this.percentage == 30) {
+        if (this.percentage == 25) {
             return 5;
-        } else if (this.percentage == 25) {
-            return 4;
         } else if (this.percentage == 20) {
+            return 4;
+        } else if (this.percentage == 15) {
             return 3;
         } else if (this.percentage == 10) {
             return 2;
