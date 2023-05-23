@@ -25,7 +25,7 @@ h1 {
 }
 
 .logo_j {
-    width: 100%;
+    width: 90%;
     padding-top: 10px;
     padding-left: 15px;
 }
@@ -218,6 +218,9 @@ canvas {
     height: 100vh;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2;
+    flex-direction: column;
+    align-items: center;
 }
 
 .turn_phone div {
@@ -386,7 +389,7 @@ canvas {
     }
     
     .logo_j {
-        width: 880px;
+        width: 89%;
     }
     .logo_j img {
         width: 50px;
@@ -494,6 +497,12 @@ canvas {
     }
 }
 
+@media (max-width:800px) { 
+    .logo_j {
+        width: 85%;
+    }
+}
+
 @media (width:720px) {
 
 
@@ -547,7 +556,7 @@ canvas {
 @media (max-width: 670px) {
     
     .logo_j {
-        width: 600px;
+        width: 78%;
     }
     
     .title_game {
@@ -613,8 +622,68 @@ canvas {
     }
 }
 
-@media (max-width: 300px) {
+@media (max-height: 780px) {
+    .logo_j img{
+        height: 85px;
+        width: 85px;
+    }
+
+    .title_game {
+        margin: 20px;
+        font-size: 60px
+    }
+
+    .menu_cont {
+        padding-top: 60px;
+        width: 760px;
+    }
+}
+
+@media (max-width: 1100px), (max-height: 580px) { 
+    .menu_cont {
+        width: 860px;
+    }
+}
+
+@media (max-height: 580px) {
+    .logo_j img{
+        height: 75px;
+        width: 75px;
+    }
+
+    .title_game {
+        margin: 5px;
+        font-size: 50px
+    }
+
+    .menu_cont {
+        padding-top: 20px;
+        width: 560px;
+    }
+}
+
+@media (max-width: 500px) {
+    
     .turn_phone {
         display: flex !important;
+        z-index: 2;
+    }
+
+    .menu_cont {
+        padding-top: 20px;
+        width: 480px;
+    }
+
+    .menu_img {
+        width: 470px;
+    }
+
+    .menu_opt {
+        width: 155px;
+    }
+
+    .menu_opt img{
+        width: 145px;
+        height: 135px;
     }
 }

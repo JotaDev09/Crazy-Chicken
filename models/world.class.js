@@ -250,10 +250,11 @@ class World {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // löscht das canvas
       this.ctx.translate(this.camera_x, 0); // zum verschieben der Kamera, damit man nicht aus dem Bild laufen kann // man muss immer x und y achse angeben
       this.addObjectsToMap(this.level.backgroundObjects);
-      this.addBarsToMap();
+      
       this.addCollectableObjToMap();
       this.addToMap(this.character);
       this.addObjectsToMap(this.level.clouds);
+      this.addBarsToMap();
       this.addObjectsToMap(this.ThrowableObjects);
       this.ctx.translate(-this.camera_x, 0);
       let self = this;

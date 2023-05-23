@@ -69,6 +69,19 @@ function openGamePhone() {
         document.getElementById('fullScreenLog').classList.add('d-none');
         document.getElementById('btnsPhone').classList.remove('d-none');
     };
+    var phone = window.matchMedia("(max-height: 680px)")
+    if (phone.matches) {
+        document.getElementById('logoJ').classList.add('d-none');
+        document.getElementById('fullScreenLog').classList.add('d-none');
+        document.getElementById('btnsPhone').classList.remove('d-none');
+    };
+    var phone = window.matchMedia("(max-height: 580px)")
+    if (phone.matches) {
+        document.getElementById('logoJ').classList.add('d-none');
+        document.getElementById('titleGame').classList.add('d-none');;
+        document.getElementById('fullScreenLog').classList.add('d-none');
+        document.getElementById('btnsPhone').classList.remove('d-none');
+    };
 
 }
 
@@ -197,7 +210,7 @@ function muteSound() {
 function sound() {
     mariachi_sound.play();
     hurt_sound.volume = 0.4
-    dead_sound.volume = 1.2
+    dead_sound.volume = 0.8
     jump_sound.volume = 0.2
     lost_sound.volume = 0.4
     bossHit_sound.volume = 0.4
