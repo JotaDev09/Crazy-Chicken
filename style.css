@@ -32,7 +32,6 @@ h1 {
 
 .logo_j img {
     width: 125px;
-    height: 125px;
 }
 
 /* canvas */
@@ -387,10 +386,11 @@ canvas {
         max-width: 100%;
         max-height: 100vh;
     }
-    
+
     .logo_j {
         width: 89%;
     }
+
     .logo_j img {
         width: 50px;
         height: 50px;
@@ -497,7 +497,7 @@ canvas {
     }
 }
 
-@media (max-width:800px) { 
+@media (max-width:800px) {
     .logo_j {
         width: 85%;
     }
@@ -542,6 +542,7 @@ canvas {
         font-size: 11px;
     }
 }
+
 @media only screen and (max-width: 670px) {
     canvas {
         width: 100%;
@@ -553,12 +554,13 @@ canvas {
         height: 100vh;
     }
 }
+
 @media (max-width: 670px) {
-    
+
     .logo_j {
         width: 78%;
     }
-    
+
     .title_game {
         margin-top: 0;
         margin-bottom: 0;
@@ -569,8 +571,9 @@ canvas {
         width: 650px
     }
 
-    .menu_opt a { 
-        font-size: 35px; }
+    .menu_opt a {
+        font-size: 35px;
+    }
 
     .menu_opt img {
         width: 190px;
@@ -623,7 +626,7 @@ canvas {
 }
 
 @media (max-height: 780px) {
-    .logo_j img{
+    .logo_j img {
         height: 85px;
         width: 85px;
     }
@@ -639,14 +642,14 @@ canvas {
     }
 }
 
-@media (max-width: 1100px), (max-height: 580px) { 
+@media (max-width: 1100px), (max-height: 580px) {
     .menu_cont {
         width: 860px;
     }
 }
 
 @media (max-height: 580px) {
-    .logo_j img{
+    .logo_j img {
         height: 75px;
         width: 75px;
     }
@@ -663,7 +666,7 @@ canvas {
 }
 
 @media (max-width: 500px) {
-    
+
     .turn_phone {
         display: flex !important;
         z-index: 2;
@@ -682,7 +685,7 @@ canvas {
         width: 155px;
     }
 
-    .menu_opt img{
+    .menu_opt img {
         width: 145px;
         height: 135px;
     }
